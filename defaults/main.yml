@@ -1,0 +1,26 @@
+---
+
+grr_debarchive_url: https://googledrive.com/host/0B1wsLqFoT7i2c3F0ZmI1RDJlUEU/grr-server_0.3.0-7_amd64.deb
+grr_client_r: 3.0.0.7
+grr_hostname: "{{ ansible_fqdn }}"
+grr_domain: localhost
+grr_admin_port: 8080
+grr_frontend_port: 8000
+grr_alert_email: "grr-monitoring@{{ grr_domain }}"
+grr_alert_emergency: "grr-emergency@{{ grr_domain }}"
+grr_admin_pass: adminpass
+
+#grr_datastore: SqliteDataStore
+grr_datastore: MysqlAdvanced
+grr_datastore_mysql_host: localhost
+## 0 meaning socket
+grr_datastore_mysql_port: 0
+grr_datastore_mysql_db: grrdb
+grr_datastore_mysql_user: grr
+grr_datastore_mysql_pass: grr
+
+## do you want server to be covered?
+## Note: can only be done if initialize is fully runned before as else client are not generated
+grr_deploy_on_server: false
+
+

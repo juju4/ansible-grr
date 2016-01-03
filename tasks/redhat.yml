@@ -1,0 +1,78 @@
+---
+## https://groups.google.com/forum/#!searchin/grr-users/redhat/grr-users/DFuSy8VpCmk/hKQgfTn5BAAJ
+## https://github.com/google/grr/blob/master/vagrant/install_linux.sh
+
+- include: redhat-epel.yml
+
+- name: yum | grr-server dependencies packages install
+  yum: name={{item}} state=present update_cache=yes
+  with_items:
+    - epel-release
+    - make
+    - automake
+    - gcc
+    - gcc-c++
+    - kernel-devel
+    - libtool
+    - swig
+    - glibc-devel
+    - git
+    - perl
+    - rpm-build
+    - libpng-devel
+    - freetype-devel
+    - patch
+##
+    - python
+    - python-pip
+    - ipython
+    - protobuf-devel
+    - protobuf-python
+    - ncurses-devel
+    - pkgconfig
+    - prelink
+    - protobuf-compiler
+    - m2crypto
+    - python-setuptools
+    - python-devel
+#    - pytsk3
+    - rpm
+    - sleuthkit
+    - sleuthkit-devel
+    - wget
+    - zip
+
+- lineinfile: dest=/etc/ld.so.conf.d/libc.conf line='/usr/local/lib' create=yes
+
+- selinux: state=disabled
+
+## do we really need to compile openssl??? not better exclude redhat/centos not 6+?
+
+## build rpm ?
+## https://github.com/google/grr/blob/master/config/centos/grr.spec.in
+
+## get systemd script from
+## https://github.com/google/grr/tree/master/config/systemd
+
+- name: download systemd scripts
+  get_url: url="https://raw.githubusercontent.com/google/grr/master/config/systemd/{{ item }}.service" dest="/etc/systemd/system/{{ item }}.service"
+  with_items:
+    - grr-dataserver-master
+    - grr-dataserver-slave
+    - grr-http-server
+    - grr-ui
+    - grr-worker
+
+- name: yum | Mysql datastore dependencies
+  yum: name={{item}} state=present
+  with_items:
+    - mariadb-server
+    - MySQL-python
+  when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
+
+- name: Redhat | Ensure Mysql/Mariadb is running and enabled on boot.
+  service: name=mariadb state=started enabled=yes
+  when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
+
+- include: source-build.yml
+

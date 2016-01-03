@@ -1,0 +1,11 @@
+---
+- name: restart grr
+  service: name={{ item }} state=restarted
+  with_items:
+    - grr-dataserver-master
+    - grr-http-server
+    - grr-worker             
+    - grr-dataserver-slave
+    - grr-ui
+
+

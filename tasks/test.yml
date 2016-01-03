@@ -1,0 +1,29 @@
+---
+## https://github.com/google/grr-doc/blob/master/implementation.adoc#testing
+
+- name: Debian | Test packages install
+  apt: name={{item}} state=present update_cache=yes
+  with_items:
+    - python-pip
+    - python-matplotlib
+    - libnss3
+    - chromium-browser
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- name: Install selenium
+  pip: name=selenium
+
+- stat: path=/root/chromedriver_linux64_26.0.1383.0.zip
+  register: cdzip
+- name: Download chromedriver
+  get_url: url=https://chromedriver.googlecode.com/files/chromedriver_linux64_26.0.1383.0.zip
+    dest=/root/chromedriver_linux64_26.0.1383.0.zip
+    mode=0400
+    sha256sum=3aa3aee40c75133c0e54ac73dc61350b304fe5344548dfb2b383c9cbb2c8043a
+  when: not cdzip.stat.exists
+- unarchive: src=/root/chromedriver_linux64_26.0.1383.0.zip dest=/usr/bin/chromedriver
+
+- name: Run tests
+  command: 'PYTHONPATH="" python /usr/lib/python2.7/dist-packages/grr/run_tests.py'
+## FIXME! IOError: [Errno 2] No such file or directory: u'/tmp/matplotlib-vagrant/fontList.cache'
+

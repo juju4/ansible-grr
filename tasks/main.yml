@@ -1,0 +1,94 @@
+---
+
+- include: debian.yml
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- include: redhat.yml
+  when: ansible_os_family == "RedHat" or ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+
+- include: datastore-mysql.yml
+  when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
+
+- stat: path=/root/requirements-grr.txt
+  register: grrreq
+- name: Download pip requirements
+  get_url: url=https://raw.githubusercontent.com/google/grr/99606f24b2f14e03dbba87aa6801b476ac7b9c20/requirements.txt
+    dest=/root/requirements-grr.txt
+    mode=0400
+#    sha256sum=9f8f38bda19557e91086022cea473fbffe0e113027ebae4f4d592772ba4d291d
+  when: not grrreq.stat.exists
+
+## FIXME! distorm3 3.3.0 from requirements fails, do it separately
+## but ... UnicodeDecodeError: 'utf8' codec can't decode byte 0x8b in position 1: invalid start byte
+#  pip: name='https://github.com/gdabah/distorm.git'
+- name: Install distorm3
+  pip: name=distorm3
+- lineinfile: dest=/root/requirements-grr.txt line='distorm3==3.3.0' state=absent backup=yes
+- name: Install grr pip requirements
+  pip:
+    requirements=/root/requirements-grr.txt
+- name: Review some limits for SQLite datastore
+  sysctl: name="fs.file-max" value=1048576 sysctl_set=yes state=present reload=yes
+##  End grr/scripts/install_script_ubuntu.sh: BUILD_DEPS_ONLY
+
+- name: Install Rekall
+  pip: name={{item}} state=present
+  with_items:
+    - rekall
+
+### from docker script but is it relevant here
+#- name: Compile protos
+#  command: make chdir=/usr/share/grr/proto
+#- name: Remove old grr installed by the deb package and overwrite it with repository one
+#  command: "{{ item }} chdir=/usr/share/grr"
+#  with_items:
+#    - rm -rf /usr/lib/python2.7/dist-packages/grr
+#    - python setup.py build 
+#    - python setup.py install
+
+- file: dest=/etc/grr state=directory mode=0755
+
+#### probably not good: include private/public key, hostname/port binding...
+- stat: path=/etc/grr/server.local.yaml
+  register: grrcfg
+- name: grr local configuration file update
+  template: src=server.local.yaml
+    dest=/etc/grr/server.local.yaml
+    backup=yes
+    owner=0 group=0 mode=0600
+#    validate='/path/cmd validate config'
+  when: not grrcfg.stat.exists
+  notify:
+    - restart grr
+
+- name: Generate keys
+  command: grr_config_updater generate_keys --overwrite
+  when: not grrcfg.stat.exists
+  ignore_errors: true
+
+### Interactive, config / still interactive
+#- name: Initialize the configuration, building clients and setting options.
+##  command: grr_config_updater initialize
+##  command: grr_config_updater --config /etc/grr/server.local.yaml initialize
+#  command: "grr_config_updater initialize --noprompt --external_hostname {{ grr_hostname }} --admin_password {{ grr_admin_pass }}"
+### FIXME! AttributeError: 'Namespace' object has no attribute 'overwrite'
+
+- name: Enable services
+  replace: dest="/etc/default/{{ item }}" regexp='^START="no";' replace='START="yes";'
+  with_items:
+    - grr-dataserver-master
+    - grr-http-server
+    - grr-worker             
+    - grr-dataserver-slave
+    - grr-ui
+  notify:
+    - restart grr
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- file: dest=/home/vagrant/.python-eggs mode=0755 state=directory
+
+- include: debian-agent.yml
+  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- debug: msg="Install complete. Congratulations. Point your browser at http://\${HOSTNAME}:8000"
+

@@ -1,0 +1,6 @@
+---
+
+- name: Install Grr agent on server
+  apt: deb=/usr/share/grr/executables/linux/installers/grr_{{ grr_client_r }}_{{ ansible_architecture }}.deb
+  when: grr_deploy_on_server is defined and grr_deploy_on_server
+

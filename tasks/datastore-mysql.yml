@@ -1,0 +1,6 @@
+---
+
+- mysql_db: "name={{ grr_datastore_mysql_db }} state=present"
+
+- mysql_user: "name={{ grr_datastore_mysql_user }} password={{ grr_datastore_mysql_pass }}  priv={{ grr_datastore_mysql_db }}.*:ALL state=present"
+

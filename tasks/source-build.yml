@@ -1,0 +1,13 @@
+---
+## https://github.com/google/grr-doc/blob/master/serverfromscratch.adoc
+
+- name: git clone Grr repository
+  git: repo=https://github.com/google/grr.git
+       dest=/root/grr
+
+## FIXME! split contents
+- name: building from scratch
+  command: "bash scripts/install_server_from_src.sh chdir=/root/grr"
+#  command: "python setup.py build chdir=/root/grr"
+
+

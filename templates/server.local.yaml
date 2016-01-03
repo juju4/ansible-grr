@@ -1,0 +1,30 @@
+Datastore.location: /var/grr-datastore
+{% if grr_datastore is defined and grr_datastore == 'MysqlAdvanced' -%}
+Datastore.implementation: MySQLAdvancedDataStore
+Mysql.port: '{{ grr_datastore_mysql_port }}'
+Mysql.host: {{ grr_datastore_mysql_host }}
+Mysql.database_name: {{ grr_datastore_mysql_db }}
+Mysql.database_username: {{ grr_datastore_mysql_user }}
+Mysql.database_password: {{ grr_datastore_mysql_pass }}
+{% else -%}
+Datastore.implementation: SqliteDataStore
+{% endif %}
+
+Logging.domain: localhost
+Monitoring.alert_email: grr-monitoring@localhost
+Monitoring.emergency_access_email: grr-emergency@localhost
+Client.control_urls: http://{{ grr_hostname }}:{{ grr_frontend_port }}/control
+Frontend.bind_port: '{{ grr_frontend_port }}'
+AdminUI.port: '{{ grr_admin_port }}'
+AdminUI.django_secret_key: ''
+AdminUI.url: http://{{ grr_hostname }}:{{ grr_admin_port }}
+ClientBuilder.executables_path: /usr/share/grr/executables
+
+CA.certificate: 
+PrivateKeys.driver_signing_private_key: ''
+Client.executable_signing_public_key: ''
+PrivateKeys.ca_key: ''
+Client.driver_signing_public_key: ''
+PrivateKeys.server_key: ''
+Frontend.certificate: ''
+PrivateKeys.executable_signing_private_key: ''
