@@ -54,6 +54,10 @@
     - python-mysqldb
   when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
 
+- name: apt | Ensure Mysql is running and enabled on boot.
+  service: name=mysql state=started enabled=yes
+  when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
+
 - name: apt | install GRR server
   apt: deb="/root/{{ grr_debarchive_url | basename }}"
 

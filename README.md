@@ -71,6 +71,17 @@ grr_datastore_mysql_pass: grr
 grr_deploy_on_server: false
 ```
 
+## Continuous integration
+
+you can test this role with test kitchen.
+In the role folder, run
+```
+$ kitchen verify
+```
+
+Known bugs
+* can be very slow test/lot of disk I/O depending on your host. check enough memory is configured inside .kitchen.yml
+
 ## Known issues
 
 Check
