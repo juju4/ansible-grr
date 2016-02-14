@@ -21,6 +21,7 @@ galaxy_info:
   - monitoring
   - system
   - web
+  - security
 dependencies:
   # List your role dependencies here, one per line. Only
   # dependencies available via galaxy should be listed here.
