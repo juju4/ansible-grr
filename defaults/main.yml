@@ -9,6 +9,8 @@ grr_frontend_port: 8000
 grr_alert_email: "grr-monitoring@{{ grr_domain }}"
 grr_alert_emergency: "grr-emergency@{{ grr_domain }}"
 grr_admin_pass: adminpass
+## By default, if ubuntu/debian, use provided package else with source
+grr_source_build: false
 
 #grr_datastore: SqliteDataStore
 grr_datastore: MysqlAdvanced

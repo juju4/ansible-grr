@@ -1,6 +1,9 @@
 ---
 driver:
   name: vagrant
+  network:
+    - ["forwarded_port", {guest: 8000, host: 58000}]
+    - ["forwarded_port", {guest: 8080, host: 58080}]
 
 driver_config:
     customize:

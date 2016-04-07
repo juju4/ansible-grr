@@ -1,3 +1,4 @@
+[![Build Status](https://travis-ci.org/juju4/ansible-grr.svg?branch=master)](https://travis-ci.org/juju4/ansible-grr)
 # GRR ansible role
 
 A simple ansible role to setup GRR Rapid Response
@@ -27,19 +28,20 @@ For example
 ```
 
 Finish install by
+```
 $ sudo grr_config_updater initialize
+```
 You should only have to check values and enter web admin password.
 (Note: log of 'Warning: Invalid utf8 character string' if using MysqlAdvanced Datastore)
+```
 $ . /usr/share/grr/scripts/shell_helpers.sh
 $ grr_restart_all
+```
 and review web interfaces settings (enable cron job, checking clients there...)
 
 Deploy on client either with scp (host path /usr/share/grr/executables), either through web UI
 
 As for any services, you are recommended to do your homework with hardening.
-
-little script with alias to restart globally grr server
-/usr/share/grr/scripts/shell_helpers.sh
 
 ## Variables
 
