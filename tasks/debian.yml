@@ -52,6 +52,12 @@
     - wget
     - zip
 
+## Why travis got 'Depends: mysql-client-5.6 (>= 5.6.28-0ubuntu0.14.04.1) but it is not going to be installed' and not kitchen...
+- command: 'apt-cache search mysql-client'
+  register: d1
+  changed_when: false
+- debug: var=d1.stdout_lines
+
 - name: apt | Mysql datastore dependencies
   apt: name={{item}} state=present
   with_items:
