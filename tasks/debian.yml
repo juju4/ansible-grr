@@ -3,8 +3,11 @@
 ##  grr/scripts/install_script_ubuntu.sh: BUILD_DEPS_ONLY
 #- command: add-apt-repository ppa:gift/dev -y
 - apt_repository: repo='ppa:gift/dev'
-- name: upgrade packages
-  apt: upgrade=safe update_cache=yes
+
+#- name: upgrade packages
+#  apt: upgrade=safe update_cache=yes
+#  async: 3600
+#  poll: 300
 
 - stat: path=/root/{{ grr_debarchive_url | basename }}
   register: grrdeb
@@ -40,7 +43,9 @@
     - python-pip
     - libpython-dev
     - python-dev
-    - pytsk3
+## No package matching 'pytsk3' is available
+#    - pytsk3
+    - python-pytsk3
     - rpm
     - sleuthkit
     - swig
