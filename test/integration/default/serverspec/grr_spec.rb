@@ -53,3 +53,9 @@ describe process("grr_server") do
 
 end
 
+## only in master
+#describe command('/bin/bash run_tests.sh | tee /root/grr-run_tests.log'), :sudo => false do
+##  its(:stdout) { should match /bin/ }
+#  its(:exit_status) { should eq 0 }
+#end
+

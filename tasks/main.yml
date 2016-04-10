@@ -9,6 +9,9 @@
 - include: datastore-mysql.yml
   when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
 
+- name: upgrade pip to 8.1.1
+  pip: name=pip version=8.1.1
+
 - stat: path=/root/requirements-grr.txt
   register: grrreq
 - name: Download pip requirements

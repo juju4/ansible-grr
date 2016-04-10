@@ -43,8 +43,6 @@
     - python-pip
     - libpython-dev
     - python-dev
-## No package matching 'pytsk3' is available
-#    - pytsk3
     - python-pytsk3
     - rpm
     - sleuthkit
@@ -52,16 +50,16 @@
     - wget
     - zip
 
-## Why travis got 'Depends: mysql-client-5.6 (>= 5.6.28-0ubuntu0.14.04.1) but it is not going to be installed' and not kitchen...
+## Why travis got 'Depends: mysql-client-5.6 (>= 5.6.28-0ubuntu0.14.04.1) but it is not going to be installed' and kitchen is fine... = try switching to 5.5
 - command: 'apt-cache search mysql-client'
   register: d1
   changed_when: false
 - debug: var=d1.stdout_lines
 
 - name: apt | Mysql datastore dependencies
-  apt: name={{item}} state=present
+  apt: "name={{item}} state=present"
   with_items:
-    - mysql-server-5.6
+    - "{{ grr_datastore_mysql_pkg }}"
     - python-mysqldb
   when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
 
