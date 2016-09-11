@@ -34,4 +34,4 @@ script:
 #  - "test/integration/default/serverspec/run-local-tests.sh"
   - "cd test/integration/default/serverspec/ && bundle exec rake spec"
 
- - egrep 'grr[-_]server' /var/log/syslog
+ - "egrep 'grr[-_]server' /var/log/syslog"
