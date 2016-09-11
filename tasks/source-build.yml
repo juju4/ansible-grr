@@ -1,6 +1,29 @@
 ---
 ## https://github.com/google/grr-doc/blob/master/serverfromscratch.adoc
 
+- name: upgrade pip to 8.1.1
+  pip: name=pip version=8.1.1
+
+- stat: path=/root/requirements-grr.txt
+  register: grrreq
+- name: Download pip requirements
+  get_url: url=https://raw.githubusercontent.com/google/grr/99606f24b2f14e03dbba87aa6801b476ac7b9c20/requirements.txt
+    dest=/root/requirements-grr.txt
+    mode=0400
+#    sha256sum=9f8f38bda19557e91086022cea473fbffe0e113027ebae4f4d592772ba4d291d
+  when: not grrreq.stat.exists
+
+## FIXME! distorm3 3.3.0 from requirements fails, do it separately
+## but ... UnicodeDecodeError: 'utf8' codec can't decode byte 0x8b in position 1: invalid start byte
+#  pip: name='https://github.com/gdabah/distorm.git'
+- name: Install distorm3
+  pip: name=distorm3
+
+- lineinfile: dest=/root/requirements-grr.txt line='distorm3==3.3.0' state=absent backup=yes
+- name: Install grr pip requirements
+  pip:
+    requirements=/root/requirements-grr.txt
+
 - name: git clone Grr repository
   git: repo=https://github.com/google/grr.git
        dest=/root/grr

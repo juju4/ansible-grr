@@ -1,4 +1,9 @@
 ---
+
+- name: restart grr-server - systemd
+  service: name=grr-server state=restarted
+  when: ansible_distribution_release == 'xenial'
+
 - name: restart grr
   service: name={{ item }} state=restarted
   with_items:
@@ -7,5 +12,6 @@
     - grr-worker             
     - grr-dataserver-slave
     - grr-ui
+  when: ansible_distribution_release != 'xenial'
 
 

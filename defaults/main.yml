@@ -1,7 +1,9 @@
 ---
 
-grr_debarchive_url: https://googledrive.com/host/0B1wsLqFoT7i2c3F0ZmI1RDJlUEU/grr-server_0.3.0-7_amd64.deb
-grr_client_r: 3.0.0.7
+grr_r: 3.1.0-2
+## only xenial supported
+grr_debarchive_url: "https://storage.googleapis.com/releases.grr-response.com/3.1.0.2/grr-server_{{ grr_r }}_amd64.deb"
+grr_debarchive_hash: "c7162ba450637b875dffb4c5342fa23ab55b44af7d4c57a381dea87fc9a7a325"
 grr_hostname: "{{ ansible_fqdn }}"
 grr_domain: localhost
 grr_admin_port: 8080
@@ -12,12 +14,9 @@ grr_admin_pass: adminpass
 ## By default, if ubuntu/debian, use provided package else with source
 grr_source_build: false
 
-#grr_datastore: SqliteDataStore
-grr_datastore: MysqlAdvanced
+grr_datastore: SqliteDataStore
+#grr_datastore: MysqlAdvanced
 grr_datastore_mysql_host: localhost
-## Why travis got 'Depends: mysql-client-5.6 (>= 5.6.28-0ubuntu0.14.04.1) but it is not going to be installed' and kitchen is fine... = try switching to 5.5
-#grr_datastore_mysql_pkg: mysql-server-5.6
-grr_datastore_mysql_pkg: mysql-server-5.5
 ## 0 meaning socket
 grr_datastore_mysql_port: 0
 grr_datastore_mysql_db: grrdb

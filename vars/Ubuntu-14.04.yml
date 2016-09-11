@@ -1,0 +1,42 @@
+---
+
+grrserver_pkg:
+    - software-properties-common
+    - apache2-utils
+    - build-essential
+    - debhelper
+    - dpkg-dev
+    - git-core
+    - ipython
+    - libdistorm64-dev
+    - libdistorm64-1
+    - libfreetype6-dev
+    - libpng-dev
+    - libprotobuf-dev
+    - ncurses-dev
+    - pkg-config
+    - prelink
+    - protobuf-compiler
+    - python-m2crypto
+    - python-protobuf
+    - python-setuptools
+    - python-support
+    - python-pip
+    - libpython-dev
+    - python-dev
+    - python-pytsk3
+    - rpm
+    - sleuthkit
+    - swig
+    - wget
+    - zip
+    - python-virtualenv
+# ?
+    - libssl-dev
+## for rekall
+    - libncurses5-dev
+    - libreadline-dev
+
+## Why travis got 'Depends: mysql-client-5.6 (>= 5.6.28-0ubuntu0.14.04.1) but it is not going to be installed' and kitchen is fine... = try switching to 5.5
+#grr_datastore_mysql_pkg: mysql-server-5.6
+grr_datastore_mysql_pkg: mysql-server-5.5

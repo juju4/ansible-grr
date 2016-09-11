@@ -1,0 +1,18 @@
+---
+
+grrserver_pkg:
+    - debhelper
+    - dpkg-dev
+    - prelink
+    - python-pip
+    - python-dev
+    - rpm
+    - sleuthkit
+    - wget
+    - zip
+    - python-virtualenv
+## for rekall
+    - libncurses5-dev
+    - libreadline-dev
+
+grr_datastore_mysql_pkg: mysql-server-5.7

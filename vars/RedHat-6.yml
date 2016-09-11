@@ -1,0 +1,41 @@
+---
+
+grrserver_pkg:
+    - epel-release
+    - make
+    - automake
+    - gcc
+    - gcc-c++
+    - kernel-devel
+    - libtool
+    - swig
+    - glibc-devel
+    - git
+    - perl
+    - rpm-build
+    - libpng-devel
+    - freetype-devel
+    - patch
+##
+    - python
+    - python-pip
+    - ipython
+    - protobuf-devel
+    - protobuf-python
+    - ncurses-devel
+    - pkgconfig
+    - prelink
+    - protobuf-compiler
+    - m2crypto
+    - python-setuptools
+    - python-devel
+#    - pytsk3
+    - rpm
+    - sleuthkit
+    - sleuthkit-devel
+    - wget
+    - zip
+    - python-virtualenv
+    - libselinux-python
+    - selinux-policy
+

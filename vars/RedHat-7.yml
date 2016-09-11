@@ -1,0 +1,27 @@
+---
+
+grrserver_pkg:
+    - epel-release
+    - make
+    - automake
+    - gcc
+    - gcc-c++
+    - kernel-devel
+    - libtool
+    - swig
+    - glibc-devel
+    - git
+    - perl
+    - rpm-build
+    - libpng-devel
+    - freetype-devel
+    - patch
+##
+    - python
+    - python-virtualenv
+    - libselinux-python
+    - selinux-policy
+## for rekall
+    - ncurses-devel
+    - readline-devel
+

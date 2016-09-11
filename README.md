@@ -1,7 +1,7 @@
 [![Build Status](https://travis-ci.org/juju4/ansible-grr.svg?branch=master)](https://travis-ci.org/juju4/ansible-grr)
-# GRR ansible role
+# GRR ansible role - WORK IN PROGRESS
 
-A simple ansible role to setup GRR Rapid Response
+Ansible role to setup GRR Rapid Response
 https://github.com/google/grr
 http://grr-response.blogspot.ca/
 
@@ -13,7 +13,7 @@ It was tested on the following versions:
 
 ### Operating systems
 
-Tested with vagrant only on Ubuntu 14.04 for now but should work on 12.04 and similar debian based systems
+Tested with vagrant only on Ubuntu 14.04
 Redhat system's need to be build from source and is work in progress.
 
 ## Example Playbook
@@ -94,7 +94,11 @@ $ wget http://127.0.0.1:8000/control
 $ sudo grr_end_to_end_tests --config /etc/grr/grr-server.yaml --verbose --local_client --local_worker
 ```
 
-* this version (0.3.0-7) is still packaged with winpmem_i386_1.6.1 (current is 2.0.1)
+* Final configuration of grr need to fill /etc/grr/server.local.yaml by calling
+```
+# grr_config_updater initialize
+```
+Currently, it's not possible to automate this part
 
 * If you want to send reports by email, need to configure email server (separate role)
 

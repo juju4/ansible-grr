@@ -1,0 +1,54 @@
+---
+
+- file: dest="{{ grr_etc }}" state=directory mode=0755
+
+#### probably not good: include private/public key, hostname/port binding...
+## FIXME! not handling an update of datastore configuration
+- stat: path="{{ grr_etc }}/server.local.yaml"
+  register: cfg0
+- name: grr local configuration file update
+  template: src=server.local.yaml
+    dest="{{ grr_etc }}/server.local.yaml"
+    backup=yes
+    owner=0 group=0 mode=0600
+#    validate='/path/cmd validate config'
+  notify:
+    - restart grr-server - systemd
+#    - restart grr
+  register: cfg
+  when: not cfg0.stat.exists
+
+- file: dest=/var/grr-datastore state=directory mode=0700
+
+## FIXME! xenial: generate_keys overwrite does NOT preserve other fields...
+## FIXME! centos7: 'pkg_resources.DistributionNotFound: The 'ipython==4.1.1' distribution was not found and is required by grr-response-core' but is installed
+#- path: dest=/etc/grr/server.local.yaml
+- name: Generate keys
+  command: "{{ grr_bindir }}/grr_config_updater generate_keys --overwrite"
+  ignore_errors: true
+  when: cfg is defined and cfg.changed
+
+### Interactive, config / still interactive
+#- name: Initialize the configuration, building clients and setting options.
+##  command: grr_config_updater initialize
+##  command: grr_config_updater --config /etc/grr/server.local.yaml initialize
+#  command: "grr_config_updater initialize --noprompt --external_hostname {{ grr_hostname }} --admin_password {{ grr_admin_pass }}"
+### FIXME! AttributeError: 'Namespace' object has no attribute 'overwrite'
+
+#- name: Enable services
+#  replace: dest="/etc/default/{{ item }}" regexp='^START="no";' replace='START="yes";'
+#  with_items:
+#    - grr-dataserver-master
+#    - grr-http-server
+#    - grr-worker
+#    - grr-dataserver-slave
+#    - grr-ui
+#  when: ansible_distribution_release != 'xenial'
+
+#- file: dest=/home/vagrant/.python-eggs mode=0755 state=directory
+
+#- include: debian-agent.yml
+#  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
+
+- debug: msg="Run '{{ grr_bindir }}/grr_config_updater initialize' to complete install and Point your browser at http://${HOSTNAME}:8000"
+
