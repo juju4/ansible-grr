@@ -14,7 +14,10 @@ env:
   - distribution: ubuntu
     version: 16.04
     init: /lib/systemd/systemd
+## https://github.com/docker/docker/issues/7459
     run_opts: "--cap-add SYS_ADMIN"
+#    run_opts: "--security-opt seccomp=unconfined"
+#    run_opts: "--privileged"
   - distribution: ubuntu
     version: 14.04
     init: /sbin/init

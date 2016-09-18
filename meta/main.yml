@@ -10,14 +10,18 @@ galaxy_info:
   # platform on this list, let us know and we'll get it added!
   #
   platforms:
+  - name: EL
+    versions:
+    - 7
   - name: Ubuntu
     versions:
+    - xenial
     - trusty
   #
   # Below are all categories currently available. Just as with
   # the platforms above, uncomment those that apply to your role.
   #
-  categories:
+  galaxy_tags:
   - monitoring
   - system
   - web

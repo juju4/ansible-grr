@@ -11,8 +11,10 @@ describe file('/usr/bin/grr_config_updater'), :if => os[:family] == 'ubuntu' && 
   it { should be_executable }
 end
 describe file('/etc/grr/server.local.yaml'), :if => os[:family] == 'ubuntu' && os[:release] == '16.04' do
+  its(:content) { should match /-----BEGIN PRIVATE KEY-----/ }
+end
+describe file('/etc/grr/server2.local.yaml'), :if => os[:family] == 'ubuntu' && os[:release] == '16.04' do
   its(:content) { should match /AdminUI.url/ }
-#  its(:content) { should match /-----BEGIN PRIVATE KEY-----/ }
 end
 
 ### pip virtualenv install
@@ -22,9 +24,12 @@ end
 describe file('/root/env-grr//bin/grr_config_updater'), :if => os[:release] != '16.04' do
   it { should be_executable }
 end
-describe file('/root/env-grr/install_data/etc/server.local.yaml'), :if => os[:release] != '16.04' do
-  its(:content) { should match /AdminUI.url/ }
+## FIXME! ipython issue
+#describe file('/root/env-grr/install_data/etc/server.local.yaml'), :if => os[:release] != '16.04' do
 #  its(:content) { should match /-----BEGIN PRIVATE KEY-----/ }
+#end
+describe file('/root/env-grr/install_data/etc/server2.local.yaml'), :if => os[:release] != '16.04' do
+  its(:content) { should match /AdminUI.url/ }
 end
 
 

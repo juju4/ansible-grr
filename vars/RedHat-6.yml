@@ -15,6 +15,7 @@ grrserver_pkg:
     - rpm-build
     - libpng-devel
     - freetype-devel
+    - openssl-devel
     - patch
 ##
     - python
