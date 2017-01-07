@@ -18,7 +18,7 @@
 
 - name: Review some limits for SQLite datastore
   sysctl: name="fs.file-max" value=1048576 sysctl_set=yes state=present reload=yes
-  when: not (ansible_virtualization_type is defined and (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "kvm"))
+  when: not (ansible_virtualization_type is defined and (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker"))
 ##  End grr/scripts/install_script_ubuntu.sh: BUILD_DEPS_ONLY
 
 ## Note: without pip 8.1.2, rekall install got: 'AttributeError: 'Requirement' object has no attribute 'project_name''

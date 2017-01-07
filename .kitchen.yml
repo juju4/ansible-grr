@@ -30,6 +30,9 @@ platforms:
   - name: ubuntu-14.04
 #  - name: ubuntu-12.04
   - name: centos-7
+    provisioner:
+## FIXME!/workaround: virtualenv bug in 2.2: https://github.com/ansible/ansible-modules-core/issues/5470
+      ansible_version: 2.1.2.0
 #  - name: centos-6
 #  - name: alpine-3.4
 

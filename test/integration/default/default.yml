@@ -1,8 +1,6 @@
 ---
 
 - hosts: all
-#  vars:
-#    - toto: tata
   roles:
-    - grr-server
+    - juju4.grr
 

@@ -15,9 +15,7 @@
 
 - name: yum | Mysql datastore dependencies
   yum: name={{item}} state=present
-  with_items:
-    - mariadb-server
-    - MySQL-python
+  with_items: "{{ grr_datastore_mysql_pkg }}"
   when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
 
 - name: Redhat | Ensure Mysql/Mariadb is running and enabled on boot.

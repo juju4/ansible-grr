@@ -40,3 +40,6 @@ grrserver_pkg:
     - libselinux-python
     - selinux-policy
 
+grr_datastore_mysql_pkg:
+    - mariadb-server
+    - MySQL-python

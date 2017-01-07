@@ -26,3 +26,6 @@ grrserver_pkg:
     - ncurses-devel
     - readline-devel
 
+grr_datastore_mysql_pkg:
+    - mariadb-server
+    - MySQL-python
