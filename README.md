@@ -1,4 +1,5 @@
-[![Build Status](https://travis-ci.org/juju4/ansible-grr.svg?branch=master)](https://travis-ci.org/juju4/ansible-grr)
+[![Build Status - Master](https://travis-ci.org/juju4/ansible-grr.svg?branch=master)](https://travis-ci.org/juju4/ansible-grr)
+[![Build Status - Devel](https://travis-ci.org/juju4/ansible-grr.svg?branch=devel)](https://travis-ci.org/juju4/ansible-grr/branches)
 # GRR ansible role - WORK IN PROGRESS
 
 Ansible role to setup GRR Rapid Response
@@ -10,6 +11,8 @@ http://grr-response.blogspot.ca/
 ### Ansible
 It was tested on the following versions:
  * 1.9
+ * 2.0
+ * 2.2
 
 ### Operating systems
 
