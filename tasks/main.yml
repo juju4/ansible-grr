@@ -21,18 +21,6 @@
   when: not (ansible_virtualization_type is defined and (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker"))
 ##  End grr/scripts/install_script_ubuntu.sh: BUILD_DEPS_ONLY
 
-## Note: without pip 8.1.2, rekall install got: 'AttributeError: 'Requirement' object has no attribute 'project_name''
-- name: set latest pip for rekall
-  pip: name={{ item.n }} version={{ item.v }} virtualenv=/root/env-grr
-#  pip: name={{ item.n }} version={{ item.v }}
-  with_items:
-    - { n: pip, v: 8.1.2 }
-- name: Install Rekall
-  pip: name={{item}} state=present virtualenv=/root/env-grr
-#  pip: name={{item}} state=present
-  with_items:
-    - rekall
-
 ### from docker script but is it relevant here
 #- name: Compile protos
 #  command: make chdir=/usr/share/grr/proto
