@@ -29,6 +29,11 @@
       with_items:
         - { u: 'https://raw.githubusercontent.com/google/grr/f94d9ca8481efe0030b42dbfe6e1230a0af4d038/debian/grr-server.service', d: 'grr.server.service', c: 'sha256:9cbfcdba412c335c1178743de3915161a5424566e5a94f7d0bf1e7b1388310d1' }
         - { u: 'https://raw.githubusercontent.com/google/grr/f94d9ca8481efe0030b42dbfe6e1230a0af4d038/debian/grr-server%40.service', d: 'grr-server@.service', c: 'sha256:da1bbebbcfa874b855b29976d23ce62cf11ffc9e115ac510af48213d55d9b796' }
+      register: systemd1
     - name: systemd | update path
       replace: "dest=/lib/systemd/system/grr-server@.service regexp=/usr/bin/grr_ replace={{ grr_bindir}}/grr_ backup=yes"
-  when: (ansible_os_family == "RedHat" or ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux') and ansible_distribution_version.split('.')[0] == '7'
+      register: systemd2
+    - name: systemd | reload
+      command: "systemctl daemon-reload"
+      when: systemd1.changed or system2.changed
+  when: (ansible_os_family == "RedHat") and ansible_distribution_version.split('.')[0] == '7'
