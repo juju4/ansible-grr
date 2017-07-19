@@ -5,16 +5,18 @@
     grr_etc: "{{ grr_env }}/install_data/etc"
     grr_executables: "{{ grr_env }}/executables"
 
-- name: set grr virtualenv with latest pip and setuptools
+- name: pip install | set grr virtualenv with latest pip and setuptools
   pip: "name={{ item.n }} version={{ item.v }} virtualenv={{ grr_env }}"
   with_items:
     - { n: pip, v: 8.1.2 }
     - { n: setuptools, v: 27.1.2 }
 
-- name: set grr virtualenv
-  pip: "name=grr-response-server virtualenv={{ grr_env }}"
+- name: pip install | set grr virtualenv
+  pip:
+    name: grr-response-server
+    virtualenv: "{{ grr_env }}"
 
-- name: install grr-response-templates
+- name: pip install | install grr-response-templates
 #  command: "pip install --no-cache-dir -f https://storage.googleapis.com/releases.grr-response.com/index.html grr-response-templates creates=/usr/local/grr-response-templates/templates/"
 #  command: "/root/env-grr/bin/pip install --no-cache-dir -f https://storage.googleapis.com/releases.grr-response.com/index.html grr-response-templates creates=/usr/local/grr-response-templates/templates/"
 #  command: "{{ grr_bindir }}/pip install --no-cache-dir -f https://storage.googleapis.com/releases.grr-response.com/index.html grr-response-templates creates={{ grr_env }}/grr-response-templates"

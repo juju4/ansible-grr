@@ -16,3 +16,5 @@ grrserver_pkg:
     - libreadline-dev
 
 grr_datastore_mysql_pkg: mysql-server-5.7
+
+grr_svc: grr-server

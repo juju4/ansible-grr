@@ -43,3 +43,5 @@ grrserver_pkg:
 grr_datastore_mysql_pkg:
     - mariadb-server
     - MySQL-python
+
+grr_svc: grr.server

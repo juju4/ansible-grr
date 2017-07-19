@@ -38,3 +38,5 @@ grrserver_pkg:
 ## Why travis got 'Depends: mysql-client-5.6 (>= 5.6.28-0ubuntu0.14.04.1) but it is not going to be installed' and kitchen is fine... = try switching to 5.5
 #grr_datastore_mysql_pkg: mysql-server-5.6
 grr_datastore_mysql_pkg: mysql-server-5.5
+
+grr_svc: grr.server

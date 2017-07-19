@@ -33,3 +33,8 @@
 
 - include: grr-configure.yml
 
+- name: ensure grr-server service started and enabled
+  service:
+    name: "{{ grr_svc }}"
+    state: started
+    enabled: yes
