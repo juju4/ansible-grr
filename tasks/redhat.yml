@@ -33,4 +33,6 @@
 - include: grr-pip.yml
 
 - name: Enable selinux
-  selinux: state=enforcing
+  selinux:
+    policy: targeted
+    state: enforcing
