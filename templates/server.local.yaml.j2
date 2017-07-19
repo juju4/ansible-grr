@@ -16,9 +16,11 @@ Monitoring.emergency_access_email: grr-emergency@localhost
 Client.control_urls: http://{{ grr_hostname }}:{{ grr_frontend_port }}/control
 Frontend.bind_port: '{{ grr_frontend_port }}'
 AdminUI.port: '{{ grr_admin_port }}'
-AdminUI.django_secret_key: ''
+#AdminUI.django_secret_key: ''
 AdminUI.url: http://{{ grr_hostname }}:{{ grr_admin_port }}
-ClientBuilder.executables_path: {{ grr_executables }}
+#ClientBuilder.executables_path: {{ grr_executables }}
+
+Server.initialized: 'True'
 
 #CA.certificate: 
 #PrivateKeys.driver_signing_private_key: ''
