@@ -1,9 +1,6 @@
 ---
 
 - set_fact:
-    grr_env: /root/env-grr
-
-- set_fact:
     grr_bindir: "{{ grr_env }}/bin"
     grr_etc: "{{ grr_env }}/install_data/etc"
     grr_executables: "{{ grr_env }}/executables"

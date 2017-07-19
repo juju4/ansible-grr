@@ -6,9 +6,16 @@
   yum: name={{item}} state=present update_cache=yes
   with_items: "{{ grrserver_pkg }}"
 
-- lineinfile: dest=/etc/ld.so.conf.d/libc.conf line='/usr/local/lib' create=yes
+- name: ensure /usr/local/lib in ld.so.conf
+  lineinfile:
+    dest: /etc/ld.so.conf.d/libc.conf
+    line: '/usr/local/lib'
+    create: yes
+    backup: yes
 
-- selinux: state=disabled
+## https://github.com/google/grr/blob/master/vagrant/install_linux.sh#L40 temporary?
+- name: Disable selinux during build
+  selinux: state=disabled
 
 ## build rpm ?
 ## https://github.com/google/grr/blob/master/config/centos/grr.spec.in
@@ -25,3 +32,5 @@
 #- include: source-build.yml
 - include: grr-pip.yml
 
+- name: Enable selinux
+  selinux: state=enforcing

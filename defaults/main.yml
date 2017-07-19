@@ -27,4 +27,6 @@ grr_datastore_mysql_pass: grr
 ## Note: can only be done if initialize is fully runned before as else client are not generated
 grr_deploy_on_server: false
 
-
+## if building from pip (centos), virtualenv
+#grr_env: /root/env-grr
+grr_env: /usr/local/share/env-grr
