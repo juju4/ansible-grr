@@ -20,7 +20,7 @@
 #  command: "pip install --no-cache-dir -f https://storage.googleapis.com/releases.grr-response.com/index.html grr-response-templates creates=/usr/local/grr-response-templates/templates/"
 #  command: "/root/env-grr/bin/pip install --no-cache-dir -f https://storage.googleapis.com/releases.grr-response.com/index.html grr-response-templates creates=/usr/local/grr-response-templates/templates/"
 #  command: "{{ grr_bindir }}/pip install --no-cache-dir -f https://storage.googleapis.com/releases.grr-response.com/index.html grr-response-templates creates={{ grr_env }}/grr-response-templates"
-  command: "{{ grr_bindir }}/pip install -f https://storage.googleapis.com/releases.grr-response.com/index.html grr-response-templates creates={{ grr_env }}/grr-response-templates"
+  command: "{{ grr_bindir }}/pip install --no-cache-dir -f https://storage.googleapis.com/releases.grr-response.com/index.html grr-response-templates creates={{ grr_env }}/grr-response-templates"
 
 ## no upstart script for ubuntu trusty
 - block:
