@@ -33,9 +33,15 @@
 
 - include: grr-configure.yml
 
+- meta: flush_handlers
+
 - name: ensure grr-server service started and enabled
   service:
     name: "{{ grr_svc }}"
     state: started
     enabled: yes
   when: ansible_distribution_release == 'xenial' or ansible_distribution_major_version == "7"
+
+- name: little delay to ensure service is fully available
+  pause:
+    seconds: 3
