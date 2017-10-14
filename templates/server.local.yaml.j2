@@ -1,3 +1,4 @@
+# {{ ansible_managed }}
 Datastore.location: /var/grr-datastore
 {% if grr_datastore is defined and grr_datastore == 'MysqlAdvanced' -%}
 Datastore.implementation: MySQLAdvancedDataStore
