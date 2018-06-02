@@ -13,6 +13,7 @@ It was tested on the following versions:
  * 1.9
  * 2.0
  * 2.2
+ * 2.5
 
 ### Operating systems
 
@@ -27,7 +28,7 @@ For example
 ```
 - host: grr
   roles:
-    - grr-server
+    - juju4.grr-server
 ```
 
 Finish install by
