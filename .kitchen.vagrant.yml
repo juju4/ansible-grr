@@ -33,4 +33,3 @@ suites:
   - name: default
     run_list:
     attributes:
-

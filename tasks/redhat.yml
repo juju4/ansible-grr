@@ -3,8 +3,10 @@
 ## https://github.com/google/grr/blob/master/vagrant/install_linux.sh
 
 - name: yum | grr-server dependencies packages install
-  yum: name={{item}} state=present update_cache=yes
+  yum: name={{ grrserver_pkg }} state=present update_cache=yes
   with_items: "{{ grrserver_pkg }}"
+  register: pkg_result
+  until: pkg_result is success
 
 - name: ensure /usr/local/lib in ld.so.conf
   lineinfile:
@@ -21,9 +23,10 @@
 ## https://github.com/google/grr/blob/master/config/centos/grr.spec.in
 
 - name: yum | Mysql datastore dependencies
-  yum: name={{item}} state=present
-  with_items: "{{ grr_datastore_mysql_pkg }}"
+  yum: name={{ grr_datastore_mysql_pkg }} state=present
   when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
+  register: pkg_result
+  until: pkg_result is success
 
 - name: Redhat | Ensure Mysql/Mariadb is running and enabled on boot.
   service: name=mariadb state=started enabled=yes

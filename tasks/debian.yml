@@ -6,21 +6,25 @@
   apt_repository: repo='ppa:gift/dev'
 
 - name: apt | grr dependencies install
-  apt: name={{item}} state=present update_cache=yes
-  with_items: "{{ grrserver_pkg }}"
+  apt: name={{ grrserver_pkg }} state=present update_cache=yes
+  register: pkg_result
+  until: pkg_result is success
 
-## Why travis got 'Depends: mysql-client-5.6 (>= 5.6.28-0ubuntu0.14.04.1) but it is not going to be installed' and kitchen is fine... = try switching to 5.5
+## Why travis got 'Depends: mysql-client-5.6 (>= 5.6.28-0ubuntu0.14.04.1) but it is not going to be installed'
+##      and kitchen is fine... = try switching to 5.5
 - command: 'apt-cache search mysql-client'
   register: d1
   changed_when: false
 - debug: var=d1.stdout_lines
 
 - name: apt | Mysql datastore dependencies
-  apt: "name={{item}} state=present"
+  apt: "name={{ item }} state=present"
   with_items:
     - "{{ grr_datastore_mysql_pkg }}"
     - python-mysqldb
   when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
+  register: pkg_result
+  until: pkg_result is success
 
 - name: apt | Ensure Mysql is running and enabled on boot.
   service: name=mysql state=started enabled=yes
@@ -37,7 +41,8 @@
       when: not grrdeb.stat.exists
     - name: apt | install GRR server
       apt: deb="/root/{{ grr_debarchive_url | basename }}"
-    - set_fact:
+    - name: Xenial | set facts for grr
+      set_fact:
         grr_bindir: /usr/bin
         grr_etc: /etc/grr
         grr_executables: /usr/share/grr-server/executables/
@@ -46,4 +51,3 @@
 #- include: source-build.yml
 - include: grr-pip.yml
   when: ansible_distribution_release != 'xenial'
-

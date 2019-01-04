@@ -13,5 +13,3 @@
     - grr-dataserver-slave
     - grr-ui
   when: ansible_distribution_release != 'xenial'
-
-

@@ -18,7 +18,8 @@
 
 - file: dest=/var/grr-datastore state=directory mode=0700
 
-## FIXME! centos7: 'pkg_resources.DistributionNotFound: The 'ipython==4.1.1' distribution was not found and is required by grr-response-core' but is installed
+## FIXME! centos7: 'pkg_resources.DistributionNotFound: The 'ipython==4.1.1' distribution was not found and
+##      is required by grr-response-core' but is installed
 #- path: dest=/etc/grr/server.local.yaml
 - name: Generate keys
   command: "{{ grr_bindir }}/grr_config_updater generate_keys --overwrite"
@@ -46,5 +47,7 @@
 #- include: debian-agent.yml
 #  when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
-- debug: msg="Run '{{ grr_bindir }}/grr_config_updater initialize' to complete install and Point your browser at http://${HOSTNAME}:8000"
-
+- debug:
+    msg: >
+      Run '{{ grr_bindir }}/grr_config_updater initialize' to complete install and
+       point your browser at http://${HOSTNAME}:8000

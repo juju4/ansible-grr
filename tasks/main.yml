@@ -5,20 +5,23 @@
   when: ansible_distribution == 'Ubuntu'
 - name: Include version-specific variables for RedHat
   include_vars: "RedHat-{{ ansible_distribution_version.split('.')[0] }}.yml"
-  when: ansible_os_family == "RedHat" or ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  when: ansible_os_family == "RedHat"
 
 - include: debian.yml
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
 - include: redhat.yml
-  when: ansible_os_family == "RedHat" or ansible_distribution == 'CentOS' or ansible_distribution == 'Red Hat Enterprise Linux'
+  when: ansible_os_family == "RedHat"
 
 - include: datastore-mysql.yml
   when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
 
 - name: Review some limits for SQLite datastore
   sysctl: name="fs.file-max" value=1048576 sysctl_set=yes state=present reload=yes
-  when: not (ansible_virtualization_type is defined and (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker"))
+  when: >
+    not (ansible_virtualization_type is defined and
+          (ansible_virtualization_type == "lxc" or ansible_virtualization_type == "docker")
+        )
 ##  End grr/scripts/install_script_ubuntu.sh: BUILD_DEPS_ONLY
 
 ### from docker script but is it relevant here

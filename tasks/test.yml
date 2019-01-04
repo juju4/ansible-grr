@@ -2,7 +2,7 @@
 ## https://github.com/google/grr-doc/blob/master/implementation.adoc#testing
 
 - name: Debian | Test packages install
-  apt: name={{item}} state=present update_cache=yes
+  apt: name={{ item }} state=present update_cache=yes
   with_items:
     - python-pip
     - python-matplotlib
@@ -26,4 +26,3 @@
 - name: Run tests
   command: 'PYTHONPATH="" python /usr/lib/python2.7/dist-packages/grr/run_tests.py'
 ## FIXME! IOError: [Errno 2] No such file or directory: u'/tmp/matplotlib-vagrant/fontList.cache'
-
