@@ -1,14 +1,19 @@
 ---
 
-- file: dest="{{ grr_etc }}" state=directory mode=0755
+- name: Ensure grr config dir exists
+  file: dest="{{ grr_etc }}" state=directory mode=0755
 
-- stat: path="{{ grr_etc }}/server.local.yaml"
+- name: Check if existing server.local.yaml
+  stat: path="{{ grr_etc }}/server.local.yaml"
   register: cfg0
 - name: grr local configuration file update
-  template: src=server.local.yaml.j2
-    dest="{{ grr_etc }}/server2.local.yaml"
-    backup=yes
-    owner=0 group=0 mode=0600
+  template:
+    src: server.local.yaml.j2
+    dest: "{{ grr_etc }}/server2.local.yaml"
+    backup: yes
+    owner: 0
+    group: 0
+    mode: '0600'
 #    validate='/path/cmd validate config'
   notify:
     - restart grr-server - systemd
@@ -16,7 +21,8 @@
   register: cfg
   when: not cfg0.stat.exists
 
-- file: dest=/var/grr-datastore state=directory mode=0700
+- name: Ensure /var/grr-datastore directory exists
+  file: dest=/var/grr-datastore state=directory mode=0700
 
 ## FIXME! centos7: 'pkg_resources.DistributionNotFound: The 'ipython==4.1.1' distribution was not found and
 ##      is required by grr-response-core' but is installed

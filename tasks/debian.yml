@@ -12,7 +12,8 @@
 
 ## Why travis got 'Depends: mysql-client-5.6 (>= 5.6.28-0ubuntu0.14.04.1) but it is not going to be installed'
 ##      and kitchen is fine... = try switching to 5.5
-- command: 'apt-cache search mysql-client'
+- name: Verify available mysql-client
+  command: 'apt-cache search mysql-client'
   register: d1
   changed_when: false
 - debug: var=d1.stdout_lines
@@ -31,7 +32,8 @@
   when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
 
 - block:
-    - stat: path=/root/{{ grr_debarchive_url | basename }}
+    - name: Check if Grr deb archive is present
+      stat: path=/root/{{ grr_debarchive_url | basename }}
       register: grrdeb
     - name: Download Grr deb archive
       get_url: url="{{ grr_debarchive_url }}"
@@ -41,6 +43,8 @@
       when: not grrdeb.stat.exists
     - name: apt | install GRR server
       apt: deb="/root/{{ grr_debarchive_url | basename }}"
+      register: pkg_result
+      until: pkg_result is success
     - name: Xenial | set facts for grr
       set_fact:
         grr_bindir: /usr/bin

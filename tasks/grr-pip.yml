@@ -11,11 +11,15 @@
   with_items:
     - { n: pip, v: 8.1.2 }
     - { n: setuptools, v: 27.1.2 }
+  register: pkg_result
+  until: pkg_result is success
 
 - name: pip install | set grr virtualenv
   pip:
     name: grr-response-server
     virtualenv: "{{ grr_env }}"
+  register: pkg_result
+  until: pkg_result is success
 
 - name: pip install | install grr-response-templates
   command: >
@@ -38,15 +42,14 @@
             d: 'grr-server@.service',
             c: 'sha256:da1bbebbcfa874b855b29976d23ce62cf11ffc9e115ac510af48213d55d9b796'
           }
-      register: systemd1
+      notify:
+        - systemd reload
     - name: systemd | update path
       replace:
         dest: /lib/systemd/system/grr-server@.service
         regexp: /usr/bin/grr_
-        replace: "{{ grr_bindir}}/grr_"
+        replace: "{{ grr_bindir }}/grr_"
         backup: yes
-      register: systemd2
-    - name: systemd | reload
-      command: "systemctl daemon-reload"
-      when: systemd1.changed or system2.changed
+      notify:
+        - systemd reload
   when: (ansible_os_family == "RedHat") and ansible_distribution_version.split('.')[0] == '7'

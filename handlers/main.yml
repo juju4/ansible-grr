@@ -9,7 +9,11 @@
   with_items:
     - grr-dataserver-master
     - grr-http-server
-    - grr-worker             
+    - grr-worker
     - grr-dataserver-slave
     - grr-ui
   when: ansible_distribution_release != 'xenial'
+
+- name: systemd reload
+  systemd:
+    daemon_reload: yes

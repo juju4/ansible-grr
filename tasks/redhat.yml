@@ -4,7 +4,6 @@
 
 - name: yum | grr-server dependencies packages install
   yum: name={{ grrserver_pkg }} state=present update_cache=yes
-  with_items: "{{ grrserver_pkg }}"
   register: pkg_result
   until: pkg_result is success
 
