@@ -30,7 +30,7 @@
   git:
     repo: https://github.com/google/grr.git
     dest: /root/grr
-    version: "{{ grr_version | default('v3.2.4.6') }}"
+    version: "{{ grr_version | default('v' + grr_r ) }}"
 
 ## FIXME! split contents
 - name: building from scratch
