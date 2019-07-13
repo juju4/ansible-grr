@@ -13,7 +13,8 @@
 - name: Install selenium
   pip: name=selenium
 
-- stat: path=/root/chromedriver_linux64_26.0.1383.0.zip
+- name: Check if chromedriver is present
+  stat: path=/root/chromedriver_linux64_26.0.1383.0.zip
   register: cdzip
 - name: Download chromedriver
   get_url: url=https://chromedriver.googlecode.com/files/chromedriver_linux64_26.0.1383.0.zip
@@ -21,8 +22,17 @@
     mode=0400
     sha256sum=3aa3aee40c75133c0e54ac73dc61350b304fe5344548dfb2b383c9cbb2c8043a
   when: not cdzip.stat.exists
-- unarchive: src=/root/chromedriver_linux64_26.0.1383.0.zip dest=/usr/bin/chromedriver
+- name: Uncompress chromedriver
+  unarchive: src=/root/chromedriver_linux64_26.0.1383.0.zip dest=/usr/bin/chromedriver
 
 - name: Run tests
-  command: 'PYTHONPATH="" python /usr/lib/python2.7/dist-packages/grr/run_tests.py'
+  command: 'python /usr/lib/python2.7/dist-packages/grr/run_tests.py'
+  environment:
+    PYTHONPATH: ''
+  changed_when: false
+  register: runtests
+
+- debug:
+    var: runtests
+    verbosity: 1
 ## FIXME! IOError: [Errno 2] No such file or directory: u'/tmp/matplotlib-vagrant/fontList.cache'

@@ -4,7 +4,8 @@
 - name: upgrade pip to 8.1.1
   pip: name=pip version=8.1.1
 
-- stat: path=/root/requirements-grr.txt
+- name: Check if grr requirements.txt file presents
+  stat: path=/root/requirements-grr.txt
   register: grrreq
 - name: Download pip requirements
   get_url: url=https://raw.githubusercontent.com/google/grr/99606f24b2f14e03dbba87aa6801b476ac7b9c20/requirements.txt
@@ -19,7 +20,8 @@
 - name: Install distorm3
   pip: name=distorm3
 
-- lineinfile: dest=/root/requirements-grr.txt line='distorm3==3.3.0' state=absent backup=yes
+- name: Remove distorm3 requirement
+  lineinfile: dest=/root/requirements-grr.txt line='distorm3==3.3.0' state=absent backup=yes
 - name: Install grr pip requirements
   pip:
     requirements=/root/requirements-grr.txt
