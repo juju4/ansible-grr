@@ -71,7 +71,8 @@ script:
 
 after_script:
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm pip freeze'
-  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm /usr/bin/grr_server -v'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm /usr/bin/grr_server --version'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm /usr/bin/grr_server --helpfull'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/grr/server.local.yaml'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/grr/server2.local.yaml'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm /usr/local/share/env-grr/bin/pip freeze'
