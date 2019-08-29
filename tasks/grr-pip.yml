@@ -16,7 +16,9 @@
 
 - name: pip install | set grr virtualenv
   pip:
-    name: grr-response-server
+    name:
+      - grr-response-server
+      - mysqlclient
     virtualenv: "{{ grr_env }}"
   register: pkg_result
   until: pkg_result is success
