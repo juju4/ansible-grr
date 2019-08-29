@@ -4,15 +4,15 @@ grrserver_pkg:
     - debhelper
     - dpkg-dev
     - prelink
-    - python-pip
-    - python-dev
-    - python-mysqldb
+    - python3-pip
+    - python3-dev
+    - python3-mysqldb
     - libmysqlclient-dev
     - rpm
     - sleuthkit
     - wget
     - zip
-    - python-virtualenv
+    - python3-virtualenv
 ## for rekall
     - libncurses5-dev
     - libreadline-dev
@@ -22,3 +22,5 @@ grrserver_pkg:
 grr_datastore_mysql_pkg: mysql-server-5.7
 
 grr_svc: grr-server
+
+grr_python_bin: python3
