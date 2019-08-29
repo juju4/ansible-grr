@@ -25,6 +25,8 @@ grrserver_pkg:
 ## for rekall
     - ncurses-devel
     - readline-devel
+# testing
+    - curl
 
 grr_datastore_mysql_pkg:
     - mariadb-server

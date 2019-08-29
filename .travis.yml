@@ -81,6 +81,8 @@ after_script:
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /usr/local/share/env-grr/install_data/etc/server2.local.yaml'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ps auxw'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm curl -vsS http://127.0.0.1:8000/control'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm curl -vsS http://127.0.0.1:8000'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm curl -vsS http://127.0.0.1:8080'
   # Clean up
   - 'sudo docker stop "$(cat ${container_id})"'
 
