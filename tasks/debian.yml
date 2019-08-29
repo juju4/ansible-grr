@@ -35,13 +35,15 @@
       stat: path=/root/{{ grr_debarchive_url | basename }}
       register: grrdeb
     - name: Download Grr deb archive
-      get_url: url="{{ grr_debarchive_url }}"
-        dest="/root/{{ grr_debarchive_url | basename }}"
-        mode=0400
-        checksum="sha256:{{ grr_debarchive_hash }}"
+      get_url:
+        url: "{{ grr_debarchive_url }}"
+        dest: "/root/{{ grr_debarchive_url | basename }}"
+        mode: '0400'
+        checksum: "sha256:{{ grr_debarchive_hash }}"
       when: not grrdeb.stat.exists
     - name: apt | install GRR server
-      apt: deb="/root/{{ grr_debarchive_url | basename }}"
+      apt:
+        deb: "/root/{{ grr_debarchive_url | basename }}"
       register: pkg_result
       until: pkg_result is success
     - name: Xenial | set facts for grr
