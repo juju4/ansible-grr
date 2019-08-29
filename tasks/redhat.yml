@@ -23,6 +23,7 @@
 
 - name: yum | Mysql datastore dependencies
   yum: name={{ grr_datastore_mysql_pkg }} state=present
+  when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
   register: pkg_result
   until: pkg_result is success
 
