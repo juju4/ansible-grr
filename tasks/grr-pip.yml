@@ -9,8 +9,8 @@
 - name: pip install | set grr virtualenv with latest pip and setuptools
   pip: "name={{ item.n }} version={{ item.v }} virtualenv={{ grr_env }}"
   with_items:
-    - { n: pip, v: 8.1.2 }
-    - { n: setuptools, v: 27.1.2 }
+    - { n: pip, v: 19.2.3 }
+    - { n: setuptools, v: 41.2.0 }
   register: pkg_result
   until: pkg_result is success
 
