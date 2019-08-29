@@ -17,6 +17,7 @@ grrserver_pkg:
     - freetype-devel
     - openssl-devel
     - patch
+    - mariadb-devel
 ##
     - python
     - python-virtualenv
