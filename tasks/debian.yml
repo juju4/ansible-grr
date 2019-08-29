@@ -19,10 +19,11 @@
 - debug: var=d1.stdout_lines
 
 - name: apt | Mysql datastore dependencies
-  apt: "name={{ item }} state=present"
-  with_items:
-    - "{{ grr_datastore_mysql_pkg }}"
-    - python-mysqldb
+  apt:
+    name:
+      - "{{ grr_datastore_mysql_pkg }}"
+      - python-mysqldb
+    state: present
   when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
   register: pkg_result
   until: pkg_result is success
