@@ -6,6 +6,7 @@ grrserver_pkg:
     - prelink
     - python-pip
     - python-dev
+    - python-mysqldb
     - rpm
     - sleuthkit
     - wget
