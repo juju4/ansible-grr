@@ -7,7 +7,11 @@
     grr_executables: "{{ grr_env }}/executables"
 
 - name: pip install | set grr virtualenv with latest pip and setuptools
-  pip: "name={{ item.n }} version={{ item.v }} virtualenv={{ grr_env }}"
+  pip:
+    name: "{{ item.n }}"
+    version: "{{ item.v }}"
+    virtualenv: "{{ grr_env }}"
+    virtualenv_python: "{{ grr_python_bin | default('python') }}"
   with_items:
     - { n: pip, v: 19.2.3 }
     - { n: setuptools, v: 41.2.0 }
@@ -20,6 +24,7 @@
       - grr-response-server
       - mysqlclient
     virtualenv: "{{ grr_env }}"
+    virtualenv_python: "{{ grr_python_bin | default('python') }}"
   register: pkg_result
   until: pkg_result is success
 
