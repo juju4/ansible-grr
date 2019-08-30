@@ -23,7 +23,7 @@
     name:
       - mysqlclient
       - git+https://github.com/chipsec/chipsec.git@v1.3.6#egg=chipsec
-      - grr-response-server
+      - "{{ grr_pip_name }}"
     virtualenv: "{{ grr_env }}"
     virtualenv_python: "{{ grr_python_bin | default('python') }}"
   register: pkg_result
