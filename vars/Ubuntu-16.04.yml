@@ -1,5 +1,16 @@
 ---
 
+grr_python2_pkgs:
+    - python-pip
+    - python-dev
+    - python-mysqldb
+    - python-virtualenv
+grr_python3_pkgs:
+    - python3-pip
+    - python3-dev
+    - python3-mysqldb
+    - python3-virtualenv
+
 grrserver_pkg:
     - debhelper
     - dpkg-dev
