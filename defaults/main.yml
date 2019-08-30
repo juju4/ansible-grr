@@ -22,6 +22,7 @@ grr_pip_name:
   - mysqlclient
   - git+https://github.com/chipsec/chipsec.git@v1.3.6#egg=chipsec
   - grr-response-server
+  - grr-response-client-builder
 #chipsec_kernel_v: "{{ ansible_kernel }}"
 
 grr_datastore: SqliteDataStore
