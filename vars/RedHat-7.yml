@@ -32,7 +32,6 @@ grrserver_pkg:
     - openssl-devel
     - patch
     - mariadb-devel
-    - "{% if grr_python_bin == 'python' %}{{ grr_python2_pkgs }}{% else %}{{ grr_python3_pkgs }}{% endif %}"
 ##
     - libselinux-python
     - selinux-policy

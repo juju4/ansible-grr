@@ -6,7 +6,7 @@
   apt_repository: repo='ppa:gift/dev'
 
 - name: apt | grr dependencies install
-  apt: name={{ grrserver_pkg }} state=present update_cache=yes
+  apt: name={{ _grrserver_pkg }} state=present update_cache=yes
   register: pkg_result
   until: pkg_result is success
 

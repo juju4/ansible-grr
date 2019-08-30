@@ -18,6 +18,10 @@
   register: pkg_result
   until: pkg_result is success
 
+- debug:
+    var: grr_pip_name
+    verbosity: 1
+
 - name: pip install | set grr virtualenv
   pip:
     name: "{{ grr_pip_name }}"

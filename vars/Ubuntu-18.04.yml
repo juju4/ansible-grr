@@ -23,7 +23,6 @@ grrserver_pkg:
     - sleuthkit
     - wget
     - zip
-    - "{% if grr_python_bin == 'python' %}{{ grr_python2_pkgs }}{% else %}{{ grr_python3_pkgs }}{% endif %}"
 ## for rekall
     - libncurses5-dev
     - libreadline-dev

@@ -3,7 +3,7 @@
 ## https://github.com/google/grr/blob/master/vagrant/install_linux.sh
 
 - name: yum | grr-server dependencies packages install
-  yum: name={{ grrserver_pkg }} state=present update_cache=yes
+  yum: name={{ _grrserver_pkg }} state=present update_cache=yes
   register: pkg_result
   until: pkg_result is success
 

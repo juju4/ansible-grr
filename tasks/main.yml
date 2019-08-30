@@ -7,6 +7,18 @@
   include_vars: "RedHat-{{ ansible_distribution_version.split('.')[0] }}.yml"
   when: ansible_os_family == "RedHat"
 
+- name: Set grr dependencies for python2
+  set_fact:
+    _grrserver_pkg: "{{ grrserver_pkg + grr_python2_pkgs }}"
+  when: grr_python_bin == 'python'
+- name: Set grr dependencies for python3
+  set_fact:
+    _grrserver_pkg: "{{ grrserver_pkg + grr_python3_pkgs }}"
+  when: grr_python_bin != 'python'
+- debug:
+    var: _grrserver_pkg
+    verbosity: 1
+
 - include: debian.yml
   when: ansible_distribution == 'Debian' or ansible_distribution == 'Ubuntu'
 
