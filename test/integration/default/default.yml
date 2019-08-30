@@ -1,5 +1,11 @@
 ---
 
 - hosts: all
+  pre_tasks:
+    - set_fact:
+        grr_pip_name:
+          - mysqlclient
+          - grr-response-server
+      when: ansible_os_family == "RedHat" and ansible_distribution_version.split('.')[0] == '7'
   roles:
     - juju4.grr
