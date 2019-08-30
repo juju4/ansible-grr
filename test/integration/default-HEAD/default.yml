@@ -1,0 +1,14 @@
+---
+
+- hosts: all
+  vars:
+    grr_pip_name:
+      - mysqlclient
+      - git+https://github.com/google/grr.git@master#egg=grr-response-core&subdirectory=grr/core
+      - git+https://github.com/google/grr.git@master#egg=grr-response-client&subdirectory=grr/client
+      - git+https://github.com/google/grr.git@master#egg=grr-response-server&subdirectory=grr/server
+      - git+https://github.com/google/grr.git@master#egg=grr-response-proto&subdirectory=grr/proto
+      - git+https://github.com/google/grr.git@master#egg=grr-response-client-builder&subdirectory=grr/client_builder
+      - git+https://github.com/google/grr.git@master#egg=grr-api-client&subdirectory=api_client/python
+  roles:
+    - juju4.grr

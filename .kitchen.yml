@@ -39,3 +39,9 @@ suites:
   - name: default
     run_list:
     attributes:
+  - name: default-HEAD
+    run_list:
+    attributes:
+  - name: default-python3
+    run_list:
+    attributes:

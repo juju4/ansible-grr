@@ -1,0 +1,22 @@
+---
+
+- hosts: all
+  vars:
+    grr_pip_name:
+      - mysqlclient
+      - git+https://github.com/chipsec/chipsec.git@1.4.0#egg=chipsec
+      - git+https://github.com/juju4/grr.git@devel#egg=grr-response-core&subdirectory=grr/core
+      - git+https://github.com/juju4/grr.git@devel#egg=grr-response-client&subdirectory=grr/client
+      - git+https://github.com/juju4/grr.git@devel#egg=grr-response-server&subdirectory=grr/server
+      - git+https://github.com/juju4/grr.git@devel#egg=grr-response-proto&subdirectory=grr/proto
+      - git+https://github.com/juju4/grr.git@devel#egg=grr-response-client-builder&subdirectory=grr/client_builder
+      - git+https://github.com/juju4/grr.git@devel#egg=grr-api-client&subdirectory=api_client/python
+  pre_tasks:
+    - set_fact:
+        grr_python_bin: python3
+      when: ansible_distribution_release == 'bionic'
+    - set_fact:
+        grr_python_bin: python36
+      when: ansible_os_family == "RedHat" and ansible_distribution_version.split('.')[0] == '7'
+  roles:
+    - juju4.grr
