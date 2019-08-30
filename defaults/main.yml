@@ -14,8 +14,13 @@ grr_admin_pass: adminpass
 ## By default, if ubuntu/debian, use provided package else with source
 grr_source_build: false
 # for pip install, either pypi upstream package, either from github
-#grr_pip_name: grr-response-server
+#grr_pip_name:
+#  - mysqlclient
+#  - git+https://github.com/chipsec/chipsec.git@v1.3.6#egg=chipsec
+#  - grr-response-server
 grr_pip_name:
+  - mysqlclient
+  - git+https://github.com/chipsec/chipsec.git@v1.3.6#egg=chipsec
   - git+https://github.com/juju4/grr/tree/devel/grr/core#egg=grr-response-core
   - git+https://github.com/juju4/grr/tree/devel/grr/client#egg=grr-response-client
   - git+https://github.com/juju4/grr/tree/devel/grr/server#egg=grr-response-server
