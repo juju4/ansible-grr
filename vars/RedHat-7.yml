@@ -19,7 +19,9 @@ grrserver_pkg:
     - patch
     - mariadb-devel
 ##
-    - python
+    - python36
+    - python36-devel
+    - python36-setuptools
     - python-virtualenv
     - libselinux-python
     - selinux-policy
@@ -34,3 +36,4 @@ grr_datastore_mysql_pkg:
     - MySQL-python
 
 grr_svc: grr.server
+grr_python_bin: python36
