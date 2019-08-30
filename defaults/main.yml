@@ -25,7 +25,7 @@ grr_pip_name:
   - git+https://github.com/juju4/grr.git@devel#egg=grr-response-client&subdirectory=grr/client
   - git+https://github.com/juju4/grr.git@devel#egg=grr-response-server&subdirectory=grr/server
   - git+https://github.com/juju4/grr.git@devel#egg=grr-response-proto&subdirectory=grr/proto
-  - git+https://github.com/juju4/grr.git@devel#egg=grr-response-api-client&subdirectory=api_client/python
+  - git+https://github.com/juju4/grr.git@devel#egg=grr-api-client&subdirectory=api_client/python
 
 grr_datastore: SqliteDataStore
 #grr_datastore: MysqlAdvanced
