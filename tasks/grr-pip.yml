@@ -25,6 +25,8 @@
     virtualenv_python: "{{ grr_python_bin | default('python') }}"
   register: pkg_result
   until: pkg_result is success
+  environment:
+    KERNEL_SRC_DIR: "{{ kernel_src_dir | default(_kernel_src_dir) }}"
 
 - name: pip install | install grr-response-templates
   command: >

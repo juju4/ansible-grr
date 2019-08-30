@@ -1,5 +1,8 @@
 ---
 
+_chipsec_kernel_v: 4.15.0-58-generic
+_kernel_src_dir: "/lib/modules/{{ chipsec_kernel_v | default(_chipsec_kernel_v) }}/build"
+
 grrserver_pkg:
     - debhelper
     - dpkg-dev
@@ -18,6 +21,10 @@ grrserver_pkg:
     - libreadline-dev
 # testing
     - curl
+# for chipsec
+    - linux-source
+    - "linux-headers-{{ chipsec_kernel_v | default(_chipsec_kernel_v) }}"
+    - nasm
 
 grr_datastore_mysql_pkg: mysql-server-5.7
 

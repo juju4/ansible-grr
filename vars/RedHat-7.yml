@@ -1,5 +1,8 @@
 ---
 
+_chipsec_kernel_v: 3.10.0-957.27.2.el7.x86_64
+_kernel_src_dir: "/usr/src/kernels/{{ chipsec_kernel_v | default(_chipsec_kernel_v) }}"
+
 grrserver_pkg:
     - epel-release
     - make
@@ -30,6 +33,12 @@ grrserver_pkg:
     - readline-devel
 # testing
     - curl
+# for chipsec
+    - kernel-devel
+    - kernel-headers
+    - redhat-rpm-config
+    - elfutils-libelf-devel
+    - nasm
 
 grr_datastore_mysql_pkg:
     - mariadb-server
