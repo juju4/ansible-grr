@@ -30,6 +30,8 @@
   service: name=mysql state=started enabled=yes
   when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
 
+- debug: var=ansible_distribution_release
+- debug: var=grr_r
 - block:
     - name: Check if Grr deb archive is present
       stat: path=/root/{{ grr_debarchive_url | basename }}
