@@ -54,7 +54,7 @@
         grr_etc: /etc/grr
         grr_executables: /usr/share/grr-server/executables/
   when: >
-    (ansible_distribution_release == 'xenial' and ansible_distribution_release == 'bionic') and
+    (ansible_distribution_release == 'xenial' or ansible_distribution_release == 'bionic') and
     grr_r != 'HEAD'
 
 - include: source-build.yml
