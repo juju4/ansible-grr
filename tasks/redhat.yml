@@ -31,8 +31,10 @@
   service: name=mariadb state=started enabled=yes
   when: grr_datastore is defined and grr_datastore == 'MysqlAdvanced' and grr_datastore_mysql_host == 'localhost'
 
-#- include: source-build.yml
+- include: source-build.yml
+  when: grr_r == 'HEAD'
 - include: grr-pip.yml
+  when: grr_r != 'HEAD'
 
 - name: Enable selinux
   selinux:
