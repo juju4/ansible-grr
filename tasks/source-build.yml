@@ -63,7 +63,7 @@
 #    virtualenv_python: "{{ grr_python_bin | default('python') }}"
 #  register: pkg_result
 #  until: pkg_result is success
-  command: "{{ grr_env }}/bin/pip install -e {{ item }} --progress-bar off"
+  shell: "source {{ grr_env }}/bin/activate; pip install -e {{ item }} --progress-bar off"
   with_items:
     - grr/proto
     - grr/core
@@ -77,11 +77,11 @@
     chdir: /root/grr
 
 - name: Source | Proto Python make
-  command: "{{ grr_env }}/bin/python makefile.py"
+  shell: "source {{ grr_env }}/bin/activate; python makefile.py"
   args:
     chdir: /root/grr/grr/proto
 
 - name: Source | Artifacts Python make
-  command: "{{ grr_env }}/bin/python makefile.py"
+  shell: "source {{ grr_env }}/bin/activate; python makefile.py"
   args:
     chdir: /root/grr/grr/core/grr_response_core/artifacts
