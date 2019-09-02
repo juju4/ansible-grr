@@ -63,7 +63,7 @@
 #    virtualenv_python: "{{ grr_python_bin | default('python') }}"
 #  register: pkg_result
 #  until: pkg_result is success
-  command: "{{ grr_env }}/bin/pip -e {{ item }} --progress-bar off"
+  command: "{{ grr_env }}/bin/pip install -e {{ item }} --progress-bar off"
   with_items:
     - grr/proto
     - grr/core
