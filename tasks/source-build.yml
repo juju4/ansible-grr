@@ -9,11 +9,16 @@
 - name: Source | upgrade pip to 19.2.3
   pip: name=pip version=19.2.3
 
+- name: github release prefix
+  set_fact:
+    grr_r: "v{{ grr_r }}"
+  when: grr_r != 'HEAD'
+
 - name: Source | git clone Grr repository
   git:
     repo: https://github.com/google/grr.git
     dest: /root/grr
-    version: "{{ grr_version | default('v' + grr_r ) }}"
+    version: "{{ grr_version | default(grr_r ) }}"
 
 - name: Source | set grr virtualenv with latest pip and setuptools
   pip:
