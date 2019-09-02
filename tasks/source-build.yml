@@ -48,6 +48,12 @@
   args:
     chdir: /root/grr
 
+- name: Source | Install specific chipsec if python3
+  shell: "source {{ grr_env }}/bin/activate; pip install https://github.com/chipsec/chipsec/archive/python3-beta.zip --install-option=\"--skip-driver\""
+  args:
+    chdir: /root/grr/grr/proto
+  when: grr_python_bin == 'python3' or grr_python_bin == 'python36'
+
 - name: Source | set grr virtualenv (3)
 #  pip:
 #    name:
