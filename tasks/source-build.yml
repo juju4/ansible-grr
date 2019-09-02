@@ -49,20 +49,32 @@
     chdir: /root/grr
 
 - name: Source | set grr virtualenv (3)
-  pip:
-    name:
-      - file:///root/grr/grr/proto
-      - file:///root/grr/grr/core
-      - file:///root/grr/grr/client
-      - file:///root/grr/api_client/python
-      - file:///root/grr/grr/client_builder
-      - file:///root/grr/grr/server/[mysqldatastore]
-      - file:///root/grr/colab
-      - file:///root/grr/grr/test
-    virtualenv: "{{ grr_env }}"
-    virtualenv_python: "{{ grr_python_bin | default('python') }}"
-  register: pkg_result
-  until: pkg_result is success
+#  pip:
+#    name:
+#      - file:///root/grr/grr/proto
+#      - file:///root/grr/grr/core
+#      - file:///root/grr/grr/client
+#      - file:///root/grr/api_client/python
+#      - file:///root/grr/grr/client_builder
+#      - file:///root/grr/grr/server/[mysqldatastore]
+#      - file:///root/grr/colab
+#      - file:///root/grr/grr/test
+#    virtualenv: "{{ grr_env }}"
+#    virtualenv_python: "{{ grr_python_bin | default('python') }}"
+#  register: pkg_result
+#  until: pkg_result is success
+  command: "{{ grr_env }}/bin/pip -e {{ item }} --progress-bar off"
+  with_items:
+    - grr/proto
+    - grr/core
+    - grr/client
+    - api_client/python
+    - grr/client_builder
+    - grr/server/[mysqldatastore]
+    - colab
+    - grr/test
+  args:
+    chdir: /root/grr
 
 - name: Source | Proto Python make
   command: "{{ grr_env }}/bin/python makefile.py"
