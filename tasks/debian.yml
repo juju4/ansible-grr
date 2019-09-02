@@ -51,7 +51,7 @@
         grr_bindir: /usr/bin
         grr_etc: /etc/grr
         grr_executables: /usr/share/grr-server/executables/
-  when: ansible_distribution_release == 'xenial'
+  when: ansible_distribution_release == 'xenial' and ansible_distribution_release == 'bionic'
 
 #- include: source-build.yml
 - include: grr-pip.yml
