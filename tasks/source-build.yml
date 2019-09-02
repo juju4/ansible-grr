@@ -1,38 +1,70 @@
 ---
-## https://github.com/google/grr-doc/blob/master/serverfromscratch.adoc
+# https://grr-doc.readthedocs.io/en/latest/installing-grr-server/from-source.html
 
-- name: upgrade pip to 8.1.1
-  pip: name=pip version=8.1.1
+- name: Source | install grr source dependencies
+  package:
+    name: "{{ grrserver_src_deps }}"
+    state: present
 
-- name: Check if grr requirements.txt file presents
-  stat: path=/root/requirements-grr.txt
-  register: grrreq
-- name: Download pip requirements
-  get_url: url=https://raw.githubusercontent.com/google/grr/99606f24b2f14e03dbba87aa6801b476ac7b9c20/requirements.txt
-    dest=/root/requirements-grr.txt
-    mode=0400
-#    sha256sum=9f8f38bda19557e91086022cea473fbffe0e113027ebae4f4d592772ba4d291d
-  when: not grrreq.stat.exists
+- name: Source | upgrade pip to 19.2.3
+  pip: name=pip version=19.2.3
 
-## FIXME! distorm3 3.3.0 from requirements fails, do it separately
-## but ... UnicodeDecodeError: 'utf8' codec can't decode byte 0x8b in position 1: invalid start byte
-#  pip: name='https://github.com/gdabah/distorm.git'
-- name: Install distorm3
-  pip: name=distorm3
-
-- name: Remove distorm3 requirement
-  lineinfile: dest=/root/requirements-grr.txt line='distorm3==3.3.0' state=absent backup=yes
-- name: Install grr pip requirements
-  pip:
-    requirements=/root/requirements-grr.txt
-
-- name: git clone Grr repository
+- name: Source | git clone Grr repository
   git:
     repo: https://github.com/google/grr.git
     dest: /root/grr
     version: "{{ grr_version | default('v' + grr_r ) }}"
 
-## FIXME! split contents
-- name: building from scratch
-  command: "bash scripts/install_server_from_src.sh chdir=/root/grr"
-#  command: "python setup.py build chdir=/root/grr"
+- name: Source | set grr virtualenv with latest pip and setuptools
+  pip:
+    name: "{{ item.n }}"
+    version: "{{ item.v }}"
+    virtualenv: "{{ grr_env }}"
+    virtualenv_python: "{{ grr_python_bin | default('python') }}"
+  with_items:
+    - { n: pip, v: 19.2.3 }
+    - { n: setuptools, v: 41.2.0 }
+  register: pkg_result
+  until: pkg_result is success
+
+- name: Source | set grr virtualenv (2)
+  pip:
+    name:
+      - wheel
+      - six
+      - nodeenv
+    virtualenv: "{{ grr_env }}"
+    virtualenv_python: "{{ grr_python_bin | default('python') }}"
+  register: pkg_result
+  until: pkg_result is success
+
+- name: Source | Force nodeenv to 10.12.0
+  command: "{{ grr_env }}/bin/nodeenv -p --prebuilt --node=10.12.0"
+  args:
+    chdir: /root/grr
+
+- name: Source | set grr virtualenv (3)
+  pip:
+    name:
+      - file:///root/grr/grr/proto
+      - file:///root/grr/grr/core
+      - file:///root/grr/grr/client
+      - file:///root/grr/api_client/python
+      - file:///root/grr/grr/client_builder
+      - file:///root/grr/grr/server/[mysqldatastore]
+      - file:///root/grr/colab
+      - file:///root/grr/grr/test
+    virtualenv: "{{ grr_env }}"
+    virtualenv_python: "{{ grr_python_bin | default('python') }}"
+  register: pkg_result
+  until: pkg_result is success
+
+- name: Source | Proto Python make
+  command: "{{ grr_env }}/bin/python makefile.py"
+  args:
+    chdir: /root/grr/grr/proto
+
+- name: Source | Artifacts Python make
+  command: "{{ grr_env }}/bin/python makefile.py"
+  args:
+    chdir: /root/grr/grr/core/grr_response_core/artifacts

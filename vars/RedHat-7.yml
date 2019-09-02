@@ -46,6 +46,23 @@ grrserver_pkg:
     - elfutils-libelf-devel
     - nasm
 
+grrserver_src_deps:
+    - epel-release
+    - python-devel
+    - python-pip
+    - wget
+    - which
+    - java-1.8.0-openjdk
+    - libffi-devel
+    - openssl-devel
+    - zip
+    - git
+    - gcc
+    - gcc-c++
+    - redhat-rpm-config
+    - rpm-build
+    - rpm-sign
+
 grr_datastore_mysql_pkg:
     - mariadb-server
     - MySQL-python

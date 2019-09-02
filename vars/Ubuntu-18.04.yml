@@ -33,6 +33,24 @@ grrserver_pkg:
     - "linux-headers-{{ chipsec_kernel_v | default(_chipsec_kernel_v) }}"
     - nasm
 
+grrserver_src_deps:
+    - fakeroot
+    - debhelper
+    - libffi-dev
+    - libssl-dev
+    - python-dev
+    - python-pip
+    - wget
+    - openjdk-8-jdk
+    - zip
+    - git
+    - devscripts
+    - dh-systemd
+    - dh-virtualenv
+    - libc6-i386
+    - lib32z1
+    - asciidoc
+
 grr_datastore_mysql_pkg: mysql-server-5.7
 
 grr_svc: grr-server
