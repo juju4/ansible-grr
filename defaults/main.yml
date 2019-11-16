@@ -1,9 +1,9 @@
 ---
 
-grr_r: 3.3.0.4
+grr_r: 3.3.0.8
 ## only xenial supported
-grr_debarchive_url: https://storage.googleapis.com/releases.grr-response.com/grr-server_3.3.0-4_amd64.deb
-grr_debarchive_hash: 90b63867b2155937808881ff337c3821ead36b1bbfed303d28053511c98a25f1
+grr_debarchive_url: https://storage.googleapis.com/releases.grr-response.com/grr-server_3.3.0-8_amd64.deb
+grr_debarchive_hash: 9923cf6adbeebf71d5f77e3bc869aa8681b10d846ca8f46a8110bcfbd380f1fa
 grr_hostname: "{{ ansible_fqdn }}"
 grr_domain: localhost
 grr_admin_port: 8080
