@@ -22,6 +22,8 @@
     var: grr_pip_name
     verbosity: 1
 
+- include: chipsec.yml
+
 - name: pip install | set grr virtualenv
   pip:
     name: "{{ grr_pip_name }}"

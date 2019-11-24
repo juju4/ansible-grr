@@ -56,16 +56,7 @@
     chdir: /root/grr
     creates: "{{ grr_env }}/src/node-v12.11.1-linux-x64"
 
-- name: Source | set grr virtualenv (2)
-  pip:
-    name:
-      - https://github.com/chipsec/chipsec/archive/python3-beta.zip
-    virtualenv: "{{ grr_env }}"
-    virtualenv_command: "{{ grr_python_bin | default('python') }}"
-    extra_args: '--install-option="--skip-driver"'
-  register: pkg_result
-  until: pkg_result is success
-  when: grr_python_bin == 'python3' or grr_python_bin == 'python36'
+- include: chipsec.yml
 
 - name: Source | set grr virtualenv (3)
 #  pip:

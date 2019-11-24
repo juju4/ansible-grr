@@ -1,0 +1,12 @@
+---
+
+- name: Install Chipsec
+  pip:
+    name:
+      - https://github.com/chipsec/chipsec/archive/python3-beta.zip
+    virtualenv: "{{ grr_env }}"
+    virtualenv_command: "{{ grr_python_bin | default('python') }}"
+    extra_args: '--install-option="--skip-driver"'
+  register: pkg_result
+  until: pkg_result is success
+  when: grr_python_bin == 'python3' or grr_python_bin == 'python3.6'
