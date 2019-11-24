@@ -55,6 +55,6 @@ grrserver_src_deps:
 
 grr_datastore_mysql_pkg:
   - mysql-server-5.7
-  - python-pymysql
+#  - python-pymysql
 
 grr_svc: grr-server

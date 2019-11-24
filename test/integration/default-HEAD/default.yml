@@ -15,6 +15,9 @@
   pre_tasks:
     - set_fact:
         grr_python_bin: python3
+        grr_datastore_mysql_pkg:
+          - mysql-server-5.7
+          - python-pymysql
       when: ansible_distribution_release == 'bionic'
     - set_fact:
         grr_python_bin: python3.6
