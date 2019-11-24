@@ -100,7 +100,7 @@ after_script:
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /etc/grr/server2.local.yaml'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm /usr/local/share/env-grr/bin/pip freeze'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm env PATH="/usr/local/share/env-grr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin" /usr/local/share/env-grr/bin/npm root -g'
-  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm env PATH="/usr/local/share/env-grr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin" /usr/local/share/env-grr/bin/npm list -g --depth=0'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm env PATH="/usr/local/share/env-grr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin" /usr/local/share/env-grr/bin/npm list -g --depth=1'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm env PATH="/usr/local/share/env-grr/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin" /usr/local/share/env-grr/bin/npm outdated'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm /usr/local/share/env-grr/bin/grr_server --version'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm /usr/local/share/env-grr/bin/grr_server --helpfull'
