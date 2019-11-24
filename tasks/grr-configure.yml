@@ -14,8 +14,8 @@
     src: server.local.yaml.j2
     dest: "{{ grr_etc }}/server2.local.yaml"
     backup: yes
-    owner: 0
-    group: 0
+    owner: root
+    group: root
     mode: '0600'
 #    validate='/path/cmd validate config'
   notify:
