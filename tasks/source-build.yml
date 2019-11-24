@@ -82,8 +82,7 @@
 #    virtualenv_python: "{{ grr_python_bin | default('python') }}"
 #  register: pkg_result
 #  until: pkg_result is success
-#  shell: "source {{ grr_env }}/bin/activate; pip install -e {{ item }} --progress-bar off"
-  shell: "{{ grr_env }}/bin/pip install -e {{ item }} --progress-bar off"
+  shell: "source {{ grr_env }}/bin/activate; pip install -e {{ item }} --progress-bar off"
   with_items:
     - grr/proto
     - grr/core
@@ -93,9 +92,6 @@
     - grr/server/[mysqldatastore]
     - colab
     - grr/test
-  environment:
-    PATH: "{{ grr_env }}/lib/node_modules/.bin:{{ grr_env }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin"
-    NODE_PATH: "{{ grr_env }}/lib/node_modules"
   args:
     chdir: /root/grr
 #    creates: "{{ grr_env }}/lib/python3.6/site-packages/grr-api-client.egg-link"
