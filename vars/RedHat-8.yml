@@ -11,7 +11,7 @@ grr_python2_pkgs:
 grr_python3_pkgs:
     - python36
     - python36-devel
-    - python36-setuptools
+    - python3-setuptools
     - python3-virtualenv
 
 grrserver_pkg:
@@ -33,7 +33,7 @@ grrserver_pkg:
     - patch
     - mariadb-devel
 ##
-    - libselinux-python
+#    - libselinux-python
     - selinux-policy
 ## for rekall
     - ncurses-devel
@@ -44,7 +44,7 @@ grrserver_pkg:
     - kernel-headers
     - redhat-rpm-config
     - elfutils-libelf-devel
-    - nasm
+#    - nasm
 
 grrserver_src_deps:
     - epel-release
