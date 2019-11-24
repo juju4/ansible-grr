@@ -48,8 +48,8 @@ grrserver_pkg:
 
 grrserver_src_deps:
     - epel-release
-    - python-devel
-    - python-pip
+    - python36-devel
+    - python3-pip
     - wget
     - which
     - java-1.8.0-openjdk
