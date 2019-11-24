@@ -2,6 +2,7 @@
 
 - hosts: all
   vars:
+    grr_r: HEAD
     grr_pip_name:
       - mysqlclient
       - git+https://github.com/chipsec/chipsec.git@1.4.0#egg=chipsec
