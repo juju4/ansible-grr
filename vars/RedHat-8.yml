@@ -1,0 +1,70 @@
+---
+
+_chipsec_kernel_v: 3.10.0-957.27.2.el7.x86_64
+_kernel_src_dir: "/usr/src/kernels/{{ chipsec_kernel_v | default(_chipsec_kernel_v) }}"
+
+grr_python2_pkgs:
+    - python
+    - python-devel
+    - python-setuptools
+    - python-virtualenv
+grr_python3_pkgs:
+    - python36
+    - python36-devel
+    - python36-setuptools
+    - python-virtualenv
+
+grrserver_pkg:
+    - epel-release
+    - make
+    - automake
+    - gcc
+    - gcc-c++
+    - kernel-devel
+    - libtool
+    - swig
+    - glibc-devel
+    - git
+    - perl
+    - rpm-build
+    - libpng-devel
+    - freetype-devel
+    - openssl-devel
+    - patch
+    - mariadb-devel
+##
+    - libselinux-python
+    - selinux-policy
+## for rekall
+    - ncurses-devel
+    - readline-devel
+# testing
+    - curl
+# for chipsec
+    - kernel-headers
+    - redhat-rpm-config
+    - elfutils-libelf-devel
+    - nasm
+
+grrserver_src_deps:
+    - epel-release
+    - python36-devel
+    - python3-pip
+    - wget
+    - which
+    - java-1.8.0-openjdk
+    - libffi-devel
+    - openssl-devel
+    - zip
+    - git
+    - gcc
+    - gcc-c++
+    - redhat-rpm-config
+    - rpm-build
+    - rpm-sign
+
+grr_datastore_mysql_pkg:
+    - mariadb-server
+    - MySQL-python
+
+grr_svc: grr.server
