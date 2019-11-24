@@ -28,8 +28,8 @@ grr_pip_name:
   - grr-response-client-builder
 #chipsec_kernel_v: "{{ ansible_kernel }}"
 
-grr_datastore: SqliteDataStore
-#grr_datastore: MysqlAdvanced
+#grr_datastore: SqliteDataStore
+grr_datastore: MysqlAdvanced
 grr_datastore_mysql_host: localhost
 ## 0 meaning socket
 grr_datastore_mysql_port: 0
