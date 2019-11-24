@@ -93,6 +93,7 @@ script:
     || (echo 'Idempotence test: fail' && cat /tmp/idempotency.log && exit 0)
 
 after_script:
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm env'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm pip freeze'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm /usr/bin/grr_server --version'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm /usr/bin/grr_server --helpfull'
