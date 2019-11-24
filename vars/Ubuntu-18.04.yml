@@ -53,6 +53,8 @@ grrserver_src_deps:
     - asciidoc
     - libmysqlclient-dev
 
-grr_datastore_mysql_pkg: mysql-server-5.7
+grr_datastore_mysql_pkg:
+  - mysql-server-5.7
+  - python-pymysql
 
 grr_svc: grr-server

@@ -65,6 +65,6 @@ grrserver_src_deps:
 
 grr_datastore_mysql_pkg:
     - mariadb-server
-    - MySQL-python
+    - python3-PyMySQL
 
 grr_svc: grr.server
