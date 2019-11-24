@@ -3,16 +3,16 @@
 sudo: required
 
 env:
-  - distribution: centos
-    version: 8
-    suite: default
-    init: /usr/lib/systemd/systemd
-    run_opts: "'--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'"
-  - distribution: centos
-    version: 7
-    suite: default
-    init: /usr/lib/systemd/systemd
-    run_opts: "'--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'"
+#  - distribution: centos
+#    version: 8
+#    suite: default
+#    init: /usr/lib/systemd/systemd
+#    run_opts: "'--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'"
+#  - distribution: centos
+#    version: 7
+#    suite: default
+#    init: /usr/lib/systemd/systemd
+#    run_opts: "'--privileged --volume=/sys/fs/cgroup:/sys/fs/cgroup:ro'"
   - distribution: ubuntu
     version: 18.04
     suite: default
