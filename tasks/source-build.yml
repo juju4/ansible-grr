@@ -7,6 +7,10 @@
     name: "{{ grrserver_src_deps }}"
     state: present
 
+- name: set fact grr_bindir
+  set_fact:
+    grr_bindir: "{{ grr_env }}/bin"
+
 - name: github release prefix
   set_fact:
     grr_r: "v{{ grr_r }}"
@@ -50,6 +54,7 @@
   command: "{{ grr_env }}/bin/nodeenv -p --prebuilt --node=12.11.1"
   args:
     chdir: /root/grr
+    creates: "{{ grr_env }}/src/node-v12.11.1-linux-x64"
 
 - name: Source | set grr virtualenv (2)
   pip:
@@ -89,9 +94,11 @@
     - colab
     - grr/test
   environment:
-    PATH: "{{ grr_env }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin"
+    PATH: "{{ grr_env }}/lib/node_modules/.bin:{{ grr_env }}/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin"
+    NODE_PATH: "{{ grr_env }}/lib/node_modules"
   args:
     chdir: /root/grr
+#    creates: "{{ grr_env }}/lib/python3.6/site-packages/grr-api-client.egg-link"
 
 - name: Source | Proto Python make
   shell: "source {{ grr_env }}/bin/activate; python makefile.py"
