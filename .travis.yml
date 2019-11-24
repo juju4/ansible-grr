@@ -81,7 +81,7 @@ script:
   - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/juju4.grr/test/integration/${suite}/default.yml --syntax-check'
 
   # Test role.
-  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/juju4.grr/test/integration/${suite}/default.yml -v'
+  - 'sudo docker exec --tty "$(cat ${container_id})" env TERM=xterm ansible-playbook /etc/ansible/roles/juju4.grr/test/integration/${suite}/default.yml -vv'
 
   # Test role idempotence.
 ## known fail
