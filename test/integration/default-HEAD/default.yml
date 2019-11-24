@@ -18,6 +18,6 @@
       when: ansible_distribution_release == 'bionic'
     - set_fact:
         grr_python_bin: python3.6
-      when: ansible_os_family == "RedHat" and ansible_distribution_version.split('.')[0] == '7'
+      when: ansible_os_family == "RedHat" and ansible_distribution_version.split('.')[0]|int >= 7
   roles:
     - juju4.grr
