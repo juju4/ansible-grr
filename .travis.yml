@@ -110,6 +110,8 @@ after_script:
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm cat /usr/local/share/env-grr/install_data/etc/server2.local.yaml'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm ls /lib/modules/ /usr/src/kernels/'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm /usr/bin/chipsec_main -v'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm mysql_config'
+  - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm mariadb_config'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm find /usr/bin -iname "python*"'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm python3 -m venv /tmp/test-venv'
   - 'docker exec --tty "$(cat ${container_id})" env TERM=xterm python3.6 -m venv /tmp/test-venv'
