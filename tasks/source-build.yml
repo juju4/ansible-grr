@@ -7,9 +7,6 @@
     name: "{{ grrserver_src_deps }}"
     state: present
 
-- name: Source | upgrade pip to 19.2.3
-  pip: name=pip version=19.2.3
-
 - name: github release prefix
   set_fact:
     grr_r: "v{{ grr_r }}"
@@ -40,7 +37,7 @@
       - six
       - nodeenv
     virtualenv: "{{ grr_env }}"
-    virtualenv_python: "{{ grr_python_bin | default('python') }}"
+    virtualenv_python: "{{ grr_python_bin | default('python') }} -m venv"
   register: pkg_result
   until: pkg_result is success
 
