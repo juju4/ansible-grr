@@ -1,4 +1,5 @@
 ---
+# https://grr-doc.readthedocs.io/en/latest/installing-grr-server/from-released-pip.html
 
 - name: Set facts
   set_fact:
@@ -13,7 +14,7 @@
     virtualenv: "{{ grr_env }}"
     virtualenv_python: "{{ grr_python_bin | default('python') }}"
   with_items:
-    - { n: pip, v: 19.2.3 }
+    - { n: pip, v: 19.3.1 }
     - { n: setuptools, v: 41.2.0 }
   register: pkg_result
   until: pkg_result is success
@@ -34,13 +35,19 @@
   environment:
     KERNEL_SRC_DIR: "{{ kernel_src_dir | default(_kernel_src_dir) }}"
 
-- name: pip install | install grr-response-templates
+- name: pip install | build grr-response-templates
   command: >
-    {{ grr_bindir }}/pip install --no-cache-dir
-        -f https://storage.googleapis.com/releases.grr-response.com/index.html
-        grr-response-templates
+    {{ grr_bindir }}/grr_client_build build --output mytemplates
   args:
-    creates: "{{ grr_env }}/grr-response-templates"
+    creates: "{{ grr_env }}/mytemplates"
+    chdir: "{{ grr_env }}"
+
+- name: pip install | repack grr-response-templates
+  command: >
+    {{ grr_bindir }}/grr_client_build repack --template mytemplates/*.zip --output_dir mytemplates
+  args:
+#    creates: "{{ grr_env }}/mytemplates"
+    chdir: "{{ grr_env }}"
 
 ## no upstart script for ubuntu trusty
 - block:
