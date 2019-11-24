@@ -11,6 +11,7 @@ grr_frontend_port: 8000
 grr_alert_email: "grr-monitoring@{{ grr_domain }}"
 grr_alert_emergency: "grr-emergency@{{ grr_domain }}"
 grr_admin_pass: adminpass
+grr_etc: /etc/grr
 ## By default, if ubuntu/debian, use provided package else with source
 grr_source_build: false
 # for pip install, either pypi upstream package, either from github
