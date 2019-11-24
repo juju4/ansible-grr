@@ -10,6 +10,7 @@
 - name: set fact grr_bindir
   set_fact:
     grr_bindir: "{{ grr_env }}/bin"
+    grr_etc: "{{ grr_env }}/install_data/etc"
 
 - name: github release prefix
   set_fact:
