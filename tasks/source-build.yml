@@ -1,5 +1,6 @@
 ---
 # https://grr-doc.readthedocs.io/en/latest/installing-grr-server/from-source.html
+# https://github.com/google/grr/blob/master/travis/install.sh
 
 - name: Source | install grr source dependencies
   package:
@@ -25,7 +26,7 @@
     name: "{{ item.n }}"
     version: "{{ item.v }}"
     virtualenv: "{{ grr_env }}"
-    virtualenv_python: "{{ grr_python_bin | default('python') }}"
+    virtualenv_command: "{{ grr_python_bin | default('python') }} -m venv"
   with_items:
     - { n: pip, v: 19.2.3 }
     - { n: setuptools, v: 41.2.0 }
@@ -43,15 +44,20 @@
   register: pkg_result
   until: pkg_result is success
 
-- name: Source | Force nodeenv to 10.12.0
-  command: "{{ grr_env }}/bin/nodeenv -p --prebuilt --node=10.12.0"
+- name: Source | Force nodeenv to 12.11.1
+  command: "{{ grr_env }}/bin/nodeenv -p --prebuilt --node=12.11.1"
   args:
     chdir: /root/grr
 
-- name: Source | Install specific chipsec if python3
-  shell: "source {{ grr_env }}/bin/activate; pip install https://github.com/chipsec/chipsec/archive/python3-beta.zip --install-option=\"--skip-driver\""
-  args:
-    chdir: /root/grr/grr/proto
+- name: Source | set grr virtualenv (2)
+  pip:
+    name:
+      - https://github.com/chipsec/chipsec/archive/python3-beta.zip
+    virtualenv: "{{ grr_env }}"
+    virtualenv_command: "{{ grr_python_bin | default('python') }} -m venv"
+    extra_args: '--install-option="--skip-driver"'
+  register: pkg_result
+  until: pkg_result is success
   when: grr_python_bin == 'python3' or grr_python_bin == 'python36'
 
 - name: Source | set grr virtualenv (3)

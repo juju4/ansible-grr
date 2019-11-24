@@ -38,8 +38,9 @@ grrserver_src_deps:
     - debhelper
     - libffi-dev
     - libssl-dev
-    - python-dev
-    - python-pip
+    - python3-dev
+    - python3-pip
+    - python3-venv
     - wget
     - openjdk-8-jdk
     - zip
@@ -50,6 +51,7 @@ grrserver_src_deps:
     - libc6-i386
     - lib32z1
     - asciidoc
+    - libmysqlclient-dev
 
 grr_datastore_mysql_pkg: mysql-server-5.7
 
