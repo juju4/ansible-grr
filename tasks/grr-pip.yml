@@ -48,6 +48,7 @@
   args:
 #    creates: "{{ grr_env }}/mytemplates"
     chdir: "{{ grr_env }}"
+  ignore_errors: true
 
 ## no upstart script for ubuntu trusty
 - block:
