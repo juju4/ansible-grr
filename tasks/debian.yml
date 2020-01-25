@@ -60,5 +60,5 @@
 
 - include: source-build.yml
   when: grr_r == 'HEAD'
-#- include: grr-pip.yml
-#  when: ansible_distribution_release != 'xenial'
+- include: grr-pip.yml
+  when: ansible_distribution_release != 'xenial' and grr_r != 'HEAD'
