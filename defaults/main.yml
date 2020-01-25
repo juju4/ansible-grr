@@ -17,9 +17,9 @@ grr_executables: /usr/share/grr-server/executables/
 ## By default, if ubuntu/debian, use provided package else with source
 grr_source_build: false
 # for pip install, either pypi upstream package, either from github
-grr_python_bin: python
+#grr_python_bin: python
 # if python3 on bionic or centos7
-#grr_python_bin: python3
+grr_python_bin: python3
 #grr_python_bin: python36
 grr_pip_name:
   - mysqlclient
