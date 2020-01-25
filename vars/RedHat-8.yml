@@ -33,7 +33,7 @@ grrserver_pkg:
     - patch
     - mariadb-devel
 ##
-#    - libselinux-python
+    - python3-libselinux
     - selinux-policy
 ## for rekall
     - ncurses-devel
