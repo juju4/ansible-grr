@@ -53,7 +53,7 @@
 ## no upstart script for ubuntu trusty
 - block:
     - name: systemd | add systemd scripts
-      get_url: "url={{ item.u }} dest=/usr/lib/systemd/system/{{ item.d }} mode=0644 checksum={{ item.c }}"
+      get_url: "url={{ item.u }} dest={{ systemd_lib }}/{{ item.d }} mode=0644 checksum={{ item.c }}"
       with_items:
         - { u: 'https://raw.githubusercontent.com/google/grr/f94d9ca8481efe0030b42dbfe6e1230a0af4d038/debian/grr-server.service',
             d: 'grr.server.service',
@@ -67,10 +67,12 @@
         - systemd reload
     - name: systemd | update path
       replace:
-        dest: /lib/systemd/system/grr-server@.service
+        dest: "{{ systemd_lib }}/grr-server@.service"
         regexp: /usr/bin/grr_
         replace: "{{ grr_bindir }}/grr_"
         backup: yes
       notify:
         - systemd reload
-  when: (ansible_os_family == "RedHat") and ansible_distribution_version.split('.')[0] == '7'
+  when: >
+    (ansible_os_family == "RedHat" and ansible_distribution_major_version|int >= 7) or
+    (ansible_distribution == "Ubuntu" and ansible_distribution_major_version|int >= 16)

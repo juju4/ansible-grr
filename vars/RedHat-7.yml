@@ -68,3 +68,5 @@ grr_datastore_mysql_pkg:
     - MySQL-python
 
 grr_svc: grr.server
+
+systemd_lib: /usr/lib/systemd/system
