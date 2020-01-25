@@ -55,13 +55,13 @@
     - name: systemd | add systemd scripts
       get_url: "url={{ item.u }} dest={{ systemd_lib }}/{{ item.d }} mode=0644 checksum={{ item.c }}"
       with_items:
-        - { u: 'https://raw.githubusercontent.com/google/grr/f94d9ca8481efe0030b42dbfe6e1230a0af4d038/debian/grr-server.service',
+        - { u: 'https://raw.githubusercontent.com/google/grr/master/debian/grr-server.service',
             d: 'grr.server.service',
-            c: 'sha256:9cbfcdba412c335c1178743de3915161a5424566e5a94f7d0bf1e7b1388310d1'
+            c: 'sha256:c0f80f95cd8e266c76662c64791c8e85b56755658e24bf9e5a5d1e075fb1e740'
           }
-        - { u: 'https://raw.githubusercontent.com/google/grr/f94d9ca8481efe0030b42dbfe6e1230a0af4d038/debian/grr-server%40.service',
+        - { u: 'https://raw.githubusercontent.com/google/grr/master/debian/grr-server%40.service',
             d: 'grr-server@.service',
-            c: 'sha256:da1bbebbcfa874b855b29976d23ce62cf11ffc9e115ac510af48213d55d9b796'
+            c: 'sha256:63f0d636fdffa452a97caef8e14e151a0c1bfa109e6da1385c335c64b9bee87f'
           }
       notify:
         - systemd reload
