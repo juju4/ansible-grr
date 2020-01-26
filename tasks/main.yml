@@ -48,6 +48,32 @@
 
 - include: grr-configure.yml
 
+- block:
+    - name: systemd | add systemd scripts
+      get_url: "url={{ item.u }} dest={{ systemd_lib }}/{{ item.d }} mode=0644 checksum={{ item.c }}"
+      with_items:
+        - { u: 'https://raw.githubusercontent.com/google/grr/master/debian/grr-server.service',
+            d: 'grr.server.service',
+            c: 'sha256:c0f80f95cd8e266c76662c64791c8e85b56755658e24bf9e5a5d1e075fb1e740'
+          }
+        - { u: 'https://raw.githubusercontent.com/google/grr/master/debian/grr-server%40.service',
+            d: 'grr-server@.service',
+            c: 'sha256:63f0d636fdffa452a97caef8e14e151a0c1bfa109e6da1385c335c64b9bee87f'
+          }
+      notify:
+        - systemd reload
+    - name: systemd | update path
+      replace:
+        dest: "{{ systemd_lib }}/grr-server@.service"
+        regexp: /usr/bin/grr_
+        replace: "{{ grr_bindir }}/grr_"
+        backup: yes
+      notify:
+        - systemd reload
+  when: >
+    (ansible_os_family == "RedHat" and ansible_distribution_major_version|int >= 7) or
+    (ansible_distribution == "Ubuntu" and ansible_distribution_major_version|int > 16)
+
 - meta: flush_handlers
 
 - name: ensure grr-server service started and enabled
