@@ -13,7 +13,7 @@ describe file('/usr/bin/grr_config_updater'), :if => os[:family] == 'ubuntu' && 
   it { should be_executable }
 end
 describe file('/etc/grr/server.local.yaml'), :if => os[:family] == 'ubuntu' && os[:release] == '16.04' do
-  its(:content) { should match /-----BEGIN PRIVATE KEY-----/ }
+  its(:content) { should match /-----BEGIN RSA PRIVATE KEY-----/ }
   its(:content) { should_not match /^AdminUI.django_secret_key: ''/ }
 end
 describe file('/etc/grr/server2.local.yaml'), :if => os[:family] == 'ubuntu' && os[:release] == '16.04' do
