@@ -54,7 +54,7 @@
       with_items:
         - { u: 'https://raw.githubusercontent.com/google/grr/master/debian/grr-server.service',
             d: 'grr.server.service',
-            c: 'sha256:c0f80f95cd8e266c76662c64791c8e85b56755658e24bf9e5a5d1e075fb1e740'
+            c: 'sha256:c9ea665fc7d7428d92f63c64094415688dd7f6553a0826a27f5e66d0a525e0e6'
           }
         - { u: 'https://raw.githubusercontent.com/google/grr/master/debian/grr-server%40.service',
             d: 'grr-server@.service',
