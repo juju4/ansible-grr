@@ -21,19 +21,14 @@
   notify:
     - restart grr-server - systemd
 #    - restart grr
+    - generate keys
   register: cfg
   when: not cfg0.stat.exists
 
 - name: Ensure /var/grr-datastore directory exists
   file: dest=/var/grr-datastore state=directory mode=0700
 
-## FIXME! centos7: 'pkg_resources.DistributionNotFound: The 'ipython==4.1.1' distribution was not found and
-##      is required by grr-response-core' but is installed
-#- path: dest=/etc/grr/server.local.yaml
-- name: Generate keys
-  command: "{{ grr_bindir }}/grr_config_updater generate_keys --overwrite"
-  ignore_errors: true
-  when: cfg is defined and cfg.changed
+- meta: flush_handlers
 
 - name: Add extra config to main file generated with keys
   blockinfile:

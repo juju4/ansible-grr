@@ -46,6 +46,6 @@
   command: >
     {{ grr_bindir }}/grr_client_build repack --template {{ grr_env }}/mytemplates/*.zip --output_dir mytemplates
   args:
-#    creates: "{{ grr_env }}/mytemplates"
+    creates: "{{ grr_env }}/mytemplates"
     chdir: "{{ grr_env }}"
   ignore_errors: true

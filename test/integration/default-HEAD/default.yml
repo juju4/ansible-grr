@@ -13,13 +13,15 @@
       - git+https://github.com/juju4/grr.git@devel#egg=grr-response-client-builder&subdirectory=grr/client_builder
       - git+https://github.com/juju4/grr.git@devel#egg=grr-api-client&subdirectory=api_client/python
   pre_tasks:
-    - set_fact:
+    - name: Bionic | set python3
+      set_fact:
         grr_python_bin: python3
         grr_datastore_mysql_pkg:
           - mysql-server-5.7
           - python-pymysql
       when: ansible_distribution_release == 'bionic'
-    - set_fact:
+    - name: Redhat7 | set python3.6
+      set_fact:
         grr_python_bin: python3.6
       when: ansible_os_family == "RedHat" and ansible_distribution_version.split('.')[0]|int >= 7
   roles:

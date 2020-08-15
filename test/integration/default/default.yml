@@ -2,7 +2,8 @@
 
 - hosts: all
   pre_tasks:
-    - set_fact:
+    - name: Redhat7 | set python3.6
+      set_fact:
         grr_python_bin: python3.6
       when: ansible_os_family == "RedHat" and ansible_distribution_version.split('.')[0] == '7'
   roles:

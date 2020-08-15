@@ -1,5 +1,9 @@
 ---
 
+- name: generate keys
+  command: "{{ grr_bindir }}/grr_config_updater generate_keys --overwrite"
+  ignore_errors: true
+
 - name: restart grr-server - systemd
   service: name=grr-server state=restarted
   when: ansible_distribution_release == 'xenial'

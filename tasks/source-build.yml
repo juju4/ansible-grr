@@ -88,15 +88,18 @@
     chdir: /root/grr
 #    creates: "{{ grr_env }}/lib/python3.6/site-packages/grr-api-client.egg-link"
     executable: /bin/bash
+  changed_when: false   # FIXME!
 
 - name: Source | Proto Python make
   shell: "source {{ grr_env }}/bin/activate; python makefile.py"
   args:
     chdir: /root/grr/grr/proto
     executable: /bin/bash
+  changed_when: false   # FIXME!
 
 - name: Source | Artifacts Python make
   shell: "source {{ grr_env }}/bin/activate; python makefile.py"
   args:
     chdir: /root/grr/grr/core/grr_response_core/artifacts
     executable: /bin/bash
+  changed_when: false   # FIXME!
