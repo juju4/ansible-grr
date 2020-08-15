@@ -58,7 +58,7 @@
           }
         - { u: 'https://raw.githubusercontent.com/google/grr/master/debian/grr-server%40.service',
             d: 'grr-server@.service',
-            c: 'sha256:63f0d636fdffa452a97caef8e14e151a0c1bfa109e6da1385c335c64b9bee87f'
+            c: 'sha256:9cb68691bd9d07d4655e91f970dd4933e33ab814ad0f67d5b97cb38dac30fb29'
           }
       notify:
         - systemd reload
