@@ -5,7 +5,7 @@ RUN apt-get update
 RUN env DEBIAN_FRONTEND=noninteractive apt-get install -y software-properties-common git systemd
 RUN apt-add-repository -y ppa:ansible/ansible
 RUN apt-get update
-RUN apt-get install -y python sudo python-pip python-dev libffi-dev ansible
+RUN apt-get install -y python3 sudo python3-pip python3-dev libffi-dev ansible
 
 # Install Ansible inventory file
 #RUN mkdir /etc/ansible
